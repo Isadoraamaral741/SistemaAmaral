@@ -18,6 +18,7 @@ public class JDlgHistoricoAtedimentoPesquisar extends javax.swing.JDialog {
     public JDlgHistoricoAtedimentoPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+          setLocationRelativeTo(null);
     }
       public void setTelaPai(JDlgHistoricoAtendimento jDlgHistoricoAtendimento){
        this.jDlgHistoricoAtendimento = jDlgHistoricoAtendimento;

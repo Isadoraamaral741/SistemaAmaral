@@ -75,7 +75,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuCadastro.add(jMnuProdutos);
 
         jMnuHistoricoAtendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/concliente.png"))); // NOI18N
-        jMnuHistoricoAtendimento.setText("Historico de Compras");
+        jMnuHistoricoAtendimento.setText("Historico de Atendimento");
         jMnuHistoricoAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMnuHistoricoAtendimentoActionPerformed(evt);
