@@ -18,6 +18,7 @@ public class JDlgClientes extends javax.swing.JDialog {
     public JDlgClientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
           Util.habilitar(false,jTxtIdCliente,jTxtApelido,jTxtNome,jTxtEndereco, jTxtCep,jTxtCidade,jTxtDataCadastro, jTxtCpf, jTxtEmail, jTxtPais, jTxtSenha, jTxtTelefone, jTxtDataNascimento, jBtnConfirmar, jBtnCancelar);
     }
 
@@ -515,7 +516,9 @@ public class JDlgClientes extends javax.swing.JDialog {
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-        Util.mensagem("Oie");
+         JDlgClientesPesquisar JDlgClientesPesquisar = new JDlgClientesPesquisar(null, true);
+        JDlgClientesPesquisar.setTelaPai(this);
+        JDlgClientesPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     /**
