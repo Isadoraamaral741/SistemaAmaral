@@ -18,6 +18,7 @@ public class JDlgProdutosPesquisar extends javax.swing.JDialog {
     public JDlgProdutosPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
       public void setTelaPai(JDlgProdutos jDlgProdutos){
        this.jDlgProdutos = jDlgProdutos;

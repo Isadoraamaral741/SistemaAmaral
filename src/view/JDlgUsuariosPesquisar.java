@@ -18,6 +18,7 @@ public class JDlgUsuariosPesquisar extends javax.swing.JDialog {
     public JDlgUsuariosPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
      public void setTelaPai(JDlgUsuarios jDlgUsuarios){
        this.jDlgUsuarios = jDlgUsuarios;

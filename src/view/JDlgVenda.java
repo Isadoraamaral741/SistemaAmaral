@@ -266,7 +266,7 @@ public class JDlgVenda extends javax.swing.JDialog {
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-        Util.mensagem("Oie");
+      
          JDlgVendasPesquisar JDlgVendasPesquisar = new JDlgVendasPesquisar(null, true);
         JDlgVendasPesquisar.setTelaPai(this);
         JDlgVendasPesquisar.setVisible(true);

@@ -18,6 +18,7 @@ public class JDlgClientesPesquisar extends javax.swing.JDialog {
     public JDlgClientesPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
        public void setTelaPai(JDlgClientes jDlgClientes){
        this.jDlgClientes = jDlgClientes;
