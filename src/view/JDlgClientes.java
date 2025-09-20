@@ -18,6 +18,7 @@ public class JDlgClientes extends javax.swing.JDialog {
     public JDlgClientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+         setTitle("Clientes");
         setLocationRelativeTo(null);
           Util.habilitar(false,jTxtIdCliente,jTxtApelido,jTxtNome,jTxtEndereco, jTxtCep,jTxtCidade,jTxtDataCadastro, jTxtCpf, jTxtEmail, jTxtPais, jTxtSenha, jTxtTelefone, jTxtDataNascimento, jBtnConfirmar, jBtnCancelar);
     }

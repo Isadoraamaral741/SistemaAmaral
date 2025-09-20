@@ -18,6 +18,7 @@ public class JDlgVenda extends javax.swing.JDialog {
     public JDlgVenda(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+         setTitle(" Venda ");
         setLocationRelativeTo(null);
         Util.habilitar(false,jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jTxtDataVenda,jTxtTotal,jBtnConfirmar, jBtnCancelar);
     }
