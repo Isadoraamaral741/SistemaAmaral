@@ -22,7 +22,7 @@ public class JDlgVenda extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         Util.habilitar(false,jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jTxtDataVenda,jTxtTotal,jBtnConfirmar, jBtnCancelar);
     }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
