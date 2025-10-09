@@ -21,7 +21,7 @@ public class Historicoatendimento  implements java.io.Serializable {
 
 
      private int iaaIdAtendimento;
-     private Integer iaaIdCliente;
+     private int iaaIdCliente;
      private Date iaaDataAtendimento;
      private String iaaTipoAtendimento;
      private String iaaDescricao;
@@ -38,7 +38,7 @@ public class Historicoatendimento  implements java.io.Serializable {
         this.iaaDescricao = iaaDescricao;
         this.iaaAtendente = iaaAtendente;
     }
-    public Historicoatendimento(int iaaIdAtendimento, Integer iaaIdCliente, Date iaaDataAtendimento, String iaaTipoAtendimento, String iaaDescricao, String iaaAtendente, Double iaaValor) {
+    public Historicoatendimento(int iaaIdAtendimento, int iaaIdCliente, Date iaaDataAtendimento, String iaaTipoAtendimento, String iaaDescricao, String iaaAtendente, Double iaaValor) {
        this.iaaIdAtendimento = iaaIdAtendimento;
        this.iaaIdCliente = iaaIdCliente;
        this.iaaDataAtendimento = iaaDataAtendimento;
@@ -62,11 +62,11 @@ public class Historicoatendimento  implements java.io.Serializable {
 
     
     @Column(name="iaaIdCliente")
-    public Integer getIaaIdCliente() {
+    public int getIaaIdCliente() {
         return this.iaaIdCliente;
     }
     
-    public void setIaaIdCliente(Integer iaaIdCliente) {
+    public void setIaaIdCliente(int iaaIdCliente) {
         this.iaaIdCliente = iaaIdCliente;
     }
 
