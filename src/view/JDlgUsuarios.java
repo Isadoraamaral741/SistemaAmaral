@@ -17,7 +17,8 @@ import tools.Util;
  */
 public class JDlgUsuarios extends javax.swing.JDialog {
 
-
+   boolean pesquisa = false;
+   private boolean incluir;
 
 
     public JDlgUsuarios(java.awt.Frame parent, boolean modal) {
@@ -31,14 +32,11 @@ public class JDlgUsuarios extends javax.swing.JDialog {
     }
     
   public void beanView(Usuarios usuarios) {
-        String codigo = String.valueOf(usuarios.getIaaIdUsuarios());
-        jTxtCodigo.setText(codigo);
+        jTxtCodigo.setText(Util.intToStr(usuarios.getIaaIdUsuarios()));
         jTxtNome.setText(usuarios.getIaaNome());
         jTxtApelido.setText(usuarios.getIaaApelido());
         jFmtCpf.setText(usuarios.getIaaCpf());
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        String dataNasc = formato.format(usuarios.getIaaDataNascimento());
-        jFmtDataDeNascimento.setText(dataNasc);
+        jFmtDataDeNascimento.setText(Util.dateToStr(usuarios.getIaaDataNascimento()));
         jPwfSenha.setText(usuarios.getIaaSenha());
         jCboNivel.setSelectedIndex(usuarios.getIaaNivel());
         if (usuarios.getIaaAtivo().equals("S")) {
@@ -305,7 +303,7 @@ public class JDlgUsuarios extends javax.swing.JDialog {
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here: 
       JDlgUsuariosPesquisar JDlgUsuariosPesquisar = new JDlgUsuariosPesquisar(null, true);
-        JDlgUsuariosPesquisar.setTelaPai(this);
+       // JDlgUsuariosPesquisar.setTelaPai(this);
         JDlgUsuariosPesquisar.setVisible(true);
 
     }//GEN-LAST:event_jBtnPesquisarActionPerformed

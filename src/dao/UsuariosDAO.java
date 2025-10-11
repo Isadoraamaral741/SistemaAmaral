@@ -15,24 +15,30 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author isado
  */
-public abstract class UsuariosDAO extends DAOAbstract {
-
+public class UsuariosDAO extends DAOAbstract {
 
     @Override
-    public void update(Object objeto) {
+    public void insert(Object object) {
         session.beginTransaction();
-        session.flush();
-        session.clear();
-        session.update(objeto);
+        session.save(object);
         session.getTransaction().commit();
- }
+    }
 
     @Override
-    public void delete(Object objeto) {
+    public void update(Object object) {
         session.beginTransaction();
         session.flush();
         session.clear();
-        session.delete(objeto);
+        session.update(object);
+        session.getTransaction().commit();
+    }
+
+    @Override
+    public void delete(Object object) {
+        session.beginTransaction();
+        session.flush();
+        session.clear();
+        session.delete(object);
         session.getTransaction().commit();
     }
 
@@ -40,20 +46,24 @@ public abstract class UsuariosDAO extends DAOAbstract {
     public Object list(int codigo) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(Usuarios.class);
-        criteria.add(Restrictions.eq("iaaIdUsuarios", codigo));
+        criteria.add(Restrictions.eq("iaaIdUsuarios", codigo) );
         List lista = criteria.list();
         session.getTransaction().commit();
-        return lista.get(0);
-
+        return lista;
     }
 
     @Override
-    public List listAll() {
+        public ArrayList listAll() {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(Usuarios.class);
         List lista = criteria.list();
         session.getTransaction().commit();
         return (ArrayList) lista;
+}
 
+
+    public static void main(String[] args) {
+        UsuariosDAO usuariosDAO = new UsuariosDAO();
+        usuariosDAO.listAll();
     }
 }
