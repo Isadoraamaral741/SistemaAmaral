@@ -5,6 +5,8 @@
  */
 package view;
 
+import bean.Usuarios;
+import java.text.SimpleDateFormat;
 import tools.Util;
 
 
@@ -28,7 +30,24 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     }
     
+  public void beanView(Usuarios usuarios) {
+        String codigo = String.valueOf(usuarios.getIaaIdUsuarios());
+        jTxtCodigo.setText(codigo);
+        jTxtNome.setText(usuarios.getIaaNome());
+        jTxtApelido.setText(usuarios.getIaaApelido());
+        jFmtCpf.setText(usuarios.getIaaCpf());
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        String dataNasc = formato.format(usuarios.getIaaDataNascimento());
+        jFmtDataDeNascimento.setText(dataNasc);
+        jPwfSenha.setText(usuarios.getIaaSenha());
+        jCboNivel.setSelectedIndex(usuarios.getIaaNivel());
+        if (usuarios.getIaaAtivo().equals("S")) {
+            jChbAtivo.setSelected(true);
+        } else {
+            jChbAtivo.setSelected(false);
+        }
 
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

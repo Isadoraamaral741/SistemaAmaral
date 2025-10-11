@@ -4,21 +4,38 @@
  */
 package view;
 
+import bean.Usuarios;
+import dao.UsuariosDAO;
+import java.util.List;
+
 /**
  *
  * @author isado
  */
 public class JDlgUsuariosPesquisar extends javax.swing.JDialog {
-
+    
     private JDlgUsuarios jDlgUsuarios;
 
+    ControllerUsuarios controllerUsuarios;
     /**
      * Creates new form JDlgUsuariosPesquisar
      */
     public JDlgUsuariosPesquisar(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setLocationRelativeTo(null);
+       super(parent, modal);
+    initComponents();
+    setLocationRelativeTo(null);
+
+    UsuariosDAO usuariosDao = new UsuariosDAO() {
+           @Override
+           public void insert(Object objeto) {
+               throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+           }
+       };
+    List<Usuarios> lista = usuariosDao.listAll(); 
+
+    ControllerUsuarios controllerUsuarios = new ControllerUsuarios();
+    controllerUsuarios.setList(lista);
+    jTable1.setModel(controllerUsuarios);
     }
      public void setTelaPai(JDlgUsuarios jDlgUsuarios){
        this.jDlgUsuarios = jDlgUsuarios;
@@ -85,7 +102,9 @@ public class JDlgUsuariosPesquisar extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
-
+ int linSel = jTable1.getSelectedRow();
+        Usuarios usuarios = (Usuarios) controllerUsuarios.getBean(linSel);
+        jDlgUsuarios.beanView(usuarios);
         setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 
