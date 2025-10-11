@@ -9,7 +9,7 @@ import dao.UsuariosDAO;
 import java.util.List;
 
 /**
- *
+ *0
  * @author ugoce
  */
 public class JDlgUsuariosPesquisar extends javax.swing.JDialog {
