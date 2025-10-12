@@ -15,7 +15,14 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author isado
  */
-public abstract class ProdutosDAO extends DAOAbstract {
+public class ProdutosDAO extends DAOAbstract {
+    
+     @Override
+    public void insert(Object object) {
+        session.beginTransaction();
+        session.save(object);
+        session.getTransaction().commit();
+    }
 
 
     @Override

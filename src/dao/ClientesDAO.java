@@ -15,9 +15,16 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author isado
  */
-public abstract class ClientesDAO extends DAOAbstract {
+public  class ClientesDAO extends DAOAbstract {
 
-
+      @Override
+    public void insert(Object object) {
+        session.beginTransaction();
+        session.save(object);
+        session.getTransaction().commit();
+    }
+    
+    
     @Override
     public void update(Object objeto) {
         session.beginTransaction();
@@ -56,4 +63,6 @@ public abstract class ClientesDAO extends DAOAbstract {
         return (ArrayList) lista;
 
     }
+
+  
 }

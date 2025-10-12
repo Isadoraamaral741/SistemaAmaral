@@ -4,6 +4,12 @@
  */
 package view;
 
+import bean.Clientes;
+import bean.Usuarios;
+import dao.UsuariosDAO;
+import java.util.List;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author isado
@@ -11,7 +17,7 @@ package view;
 public class JDlgClientesPesquisar extends javax.swing.JDialog {
 
     private JDlgClientes jDlgClientes;
-
+       ControllerClientes controllerClientes;
     /**
      * Creates new form JDlgClientesPesquisar
      */
@@ -19,6 +25,11 @@ public class JDlgClientesPesquisar extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+         UsuariosDAO usuariosDAO = new UsuariosDAO();
+        List lista = (List) usuariosDAO.listAll();
+        controllerClientes = new ControllerClientes();
+        controllerClientes.setList(lista);
+        jTable1.setModel((TableModel) controllerClientes);
     }
        public void setTelaPai(JDlgClientes jDlgClientes){
        this.jDlgClientes = jDlgClientes;
@@ -84,7 +95,9 @@ public class JDlgClientesPesquisar extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
-
+ int linSel = jTable1.getSelectedRow();
+        Clientes clientes = (Clientes) controllerClientes.getBean(linSel);
+      //  jDlgClientes.beanView(clientes);
         setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 

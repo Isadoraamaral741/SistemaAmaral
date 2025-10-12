@@ -5,7 +5,10 @@
 package view;
 
 
+import dao.UsuariosDAO;
+import dao.VendasDAO;
 import java.util.List;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -14,7 +17,7 @@ import java.util.List;
 public class JDlgVendasPesquisar extends javax.swing.JDialog {
 
     private JDlgVenda jDlgVenda;
-              
+               ControllerVendas controllerVendas;
     /**
      * Creates new form JDlgVendasPesquisar
      */
@@ -22,7 +25,11 @@ public class JDlgVendasPesquisar extends javax.swing.JDialog {
         super(parent, modal);
          initComponents();        
         setLocationRelativeTo(null);
-       
+            VendasDAO vendasDAO = new VendasDAO();
+        List lista = (List) vendasDAO.listAll();
+        controllerVendas = new ControllerVendas();
+        controllerVendas.setList(lista);
+        jTable1.setModel((TableModel) controllerVendas);
        
     }
         public void setTelaPai(JDlgVenda jDlgVenda){

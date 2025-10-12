@@ -4,6 +4,11 @@
  */
 package view;
 
+import dao.HistoricoAtendimentoDAO;
+import dao.UsuariosDAO;
+import java.util.List;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author isado
@@ -11,7 +16,7 @@ package view;
 public class JDlgHistoricoAtedimentoPesquisar extends javax.swing.JDialog {
 
     private JDlgHistoricoAtendimento jDlgHistoricoAtendimento;
-
+     ControllerHistoricoAtendimento controllerHistoricoAtendimento;
     /**
      * Creates new form JDlgHistoricoAtedimentoPesquisar
      */
@@ -19,6 +24,11 @@ public class JDlgHistoricoAtedimentoPesquisar extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
           setLocationRelativeTo(null);
+        HistoricoAtendimentoDAO historicoAtendimentoDAO = new HistoricoAtendimentoDAO();
+        List lista = (List) historicoAtendimentoDAO.listAll();
+        controllerHistoricoAtendimento = new ControllerHistoricoAtendimento();
+        controllerHistoricoAtendimento.setList(lista);
+        jTable1.setModel((TableModel) controllerHistoricoAtendimento);
     }
       public void setTelaPai(JDlgHistoricoAtendimento jDlgHistoricoAtendimento){
        this.jDlgHistoricoAtendimento = jDlgHistoricoAtendimento;

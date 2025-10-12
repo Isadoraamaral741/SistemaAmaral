@@ -5,6 +5,7 @@
  */
 package view;
 
+import bean.Usuarios;
 import dao.UsuariosDAO;
 import java.util.List;
 
@@ -95,7 +96,11 @@ public class JDlgUsuariosPesquisar extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
-                setVisible(false);
+        
+        int linSel = jTable1.getSelectedRow();
+        Usuarios usuarios = (Usuarios) controllerUsuario.getBean(linSel);
+        jDlgUsuarios.beanView(usuarios);
+        setVisible(false);
 
     }//GEN-LAST:event_jBtnOkActionPerformed
 

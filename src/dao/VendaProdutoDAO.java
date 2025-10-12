@@ -17,7 +17,13 @@ import org.hibernate.criterion.Restrictions;
  */
 public abstract class VendaProdutoDAO extends DAOAbstract {
 
-
+     @Override
+    public void insert(Object object) {
+        session.beginTransaction();
+        session.save(object);
+        session.getTransaction().commit();
+    } 
+    
     @Override
     public void update(Object objeto) {
         session.beginTransaction();

@@ -4,6 +4,11 @@
  */
 package view;
 
+import dao.ProdutosDAO;
+import dao.VendasDAO;
+import java.util.List;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author isado
@@ -11,7 +16,7 @@ package view;
 public class JDlgProdutosPesquisar extends javax.swing.JDialog {
 
     private JDlgProdutos jDlgProdutos;
-
+    ControllerProduto controllerProduto;
     /**
      * Creates new form JDlgProdutosPesquisar
      */
@@ -19,6 +24,12 @@ public class JDlgProdutosPesquisar extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+           ProdutosDAO produtosDAO = new ProdutosDAO();
+        List lista = (List) produtosDAO.listAll();
+         controllerProduto = new ControllerProduto();
+        controllerProduto.setList(lista);
+        jTable1.setModel((TableModel) controllerProduto);
+       
     }
       public void setTelaPai(JDlgProdutos jDlgProdutos){
        this.jDlgProdutos = jDlgProdutos;
