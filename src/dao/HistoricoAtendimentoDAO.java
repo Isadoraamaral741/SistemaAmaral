@@ -5,7 +5,7 @@
  */
 package dao;
 
-import bean.Clientes;
+
 import bean.Historicoatendimento;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +18,13 @@ import org.hibernate.criterion.Restrictions;
  */
 public class HistoricoAtendimentoDAO extends DAOAbstract {
 
-     @Override
-    public void insert(Object object) {
-        session.beginTransaction();
-        session.save(object);
-        session.getTransaction().commit();
-    }
+   @Override
+public void insert(Object objeto) {
+    session.beginTransaction();
+    session.save(objeto);
+    session.getTransaction().commit();
+}
+
 
     @Override
     public void update(Object objeto) {

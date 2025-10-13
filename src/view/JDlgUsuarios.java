@@ -317,6 +317,7 @@ if (Util.perguntar("Deseja Excluir?") == true) {
         }
          Util.limpar(jTxtCodigo,jTxtNome,jTxtApelido, jFmtCpf, jFmtDataDeNascimento,jPwfSenha,  jChbAtivo, jCboNivel);
 
+         
 
     }//GEN-LAST:event_jBtnExcluirActionPerformed
    

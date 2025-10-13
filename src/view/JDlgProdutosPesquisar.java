@@ -4,6 +4,8 @@
  */
 package view;
 
+import bean.Produtos;
+import bean.Usuarios;
 import dao.ProdutosDAO;
 import dao.VendasDAO;
 import java.util.List;
@@ -97,7 +99,9 @@ public void setTelaPai(JDlgProdutos jDlgProdutos) {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
-
+        int linSel = jTable1.getSelectedRow();
+       Produtos usuarios = (Produtos) controllerProdutos.getBean(linSel);
+        jDlgProdutos.beanView(usuarios);
         setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 

@@ -4,6 +4,9 @@
  */
 package view;
 
+import bean.Produtos;
+import dao.ProdutosDAO;
+import dao.UsuariosDAO;
 import tools.Util;
 
 /**
@@ -11,7 +14,9 @@ import tools.Util;
  * @author isado
  */
 public class JDlgProdutos extends javax.swing.JDialog {
-
+ 
+    boolean pesquisa = false;
+   private boolean incluir;
     /**
      * Creates new form JDlgProdutos
      */
@@ -22,6 +27,30 @@ public class JDlgProdutos extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         Util.habilitar(false,jTxtIdProduto,jTxtArDescricao,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho,jBtnConfirmar, jBtnCancelar);
     }
+       
+    public Produtos viewBean() {
+    Produtos produtos = new Produtos();
+    
+    produtos.setIaaIdProdutos(Util.strToInt(jTxtIdProduto.getText()));
+    produtos.setIaaNome(jTxtNome.getText());
+    produtos.setIaaDescricao(jTxtArDescricao.getText());
+    produtos.setIaaCategoria(jTxtCategoria.getText());
+    produtos.setIaaTamanho(jTxtTamanho.getText());
+    produtos.setIaaPreco(Util.strToInt(jTxtPreco.getText()));
+    produtos.setIaaEstoque(Util.strToInt(jTxtEstoque.getText()));
+    
+    return produtos;
+}
+    public void beanView(Produtos produtos) {
+    jTxtIdProduto.setText(Util.intToStr(produtos.getIaaIdProdutos()));
+    jTxtNome.setText(produtos.getIaaNome());
+    jTxtArDescricao.setText(produtos.getIaaDescricao());
+    jTxtCategoria.setText(produtos.getIaaCategoria());
+    jTxtTamanho.setText(produtos.getIaaTamanho());
+    jTxtPreco.setText(Util.doubleToStr(produtos.getIaaPreco()));
+    jTxtEstoque.setText(Util.intToStr(produtos.getIaaEstoque()));
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -221,31 +250,46 @@ public class JDlgProdutos extends javax.swing.JDialog {
         // TODO add your handling code here:
         Util.habilitar(true,jTxtIdProduto,jTxtArDescricao,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+         jTxtIdProduto.grabFocus();
+        incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true,jTxtArDescricao,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(true,jTxtArDescricao,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho, jTxtArDescricao, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+          incluir = false;
+        jTxtNome.grabFocus();
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        Util.perguntar("Deseja excluir?");
+       if (Util.perguntar("Deseja Excluir?") == true) {
+            ProdutosDAO produtosDAO = new ProdutosDAO();
+            produtosDAO.delete(viewBean());
+        }
+               Util.limpar(jTxtIdProduto,jTxtArDescricao,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho, jTxtArDescricao);
+
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false,jTxtIdProduto,jTxtArDescricao,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(false,jTxtIdProduto,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho, jTxtArDescricao, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.limpar(jTxtIdProduto,jTxtArDescricao,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho);
+         ProdutosDAO produtosDAO = new ProdutosDAO();
+        if (incluir == true) {
+            produtosDAO.insert(viewBean());
+        } else {
+            produtosDAO.update(viewBean());
+        }
+        Util.limpar(jTxtIdProduto,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho,jTxtArDescricao);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false,jTxtIdProduto,jTxtArDescricao,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(false,jTxtIdProduto,jTxtArDescricao,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho, jTxtArDescricao, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.limpar(jTxtIdProduto,jTxtArDescricao,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho);
+        Util.limpar(jTxtIdProduto,jTxtArDescricao,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho,jTxtArDescricao);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed

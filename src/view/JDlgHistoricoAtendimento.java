@@ -4,6 +4,9 @@
  */
 package view;
 
+import bean.Historicoatendimento;
+import dao.HistoricoAtendimentoDAO;
+import dao.ProdutosDAO;
 import tools.Util;
 
 /**
@@ -11,7 +14,8 @@ import tools.Util;
  * @author isado
  */
 public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
-
+     boolean pesquisa = false;
+   private boolean incluir;
     /**
      * Creates new form JDlgHistoricoAtendimento
      */
@@ -20,8 +24,30 @@ public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
         initComponents();
          setTitle("Historico de Atendimento");
         setLocationRelativeTo(null);
-        Util.habilitar(false,jTxtIdAtendente,jTxtIdAtendimento,jTxtValor,jTxtArDescricao,jTxtDataAtendimento,jTxtIdCliente,jBtnConfirmar, jBtnCancelar );
+        Util.habilitar(false,jTxtIdAtendente,jTxtIdAtendimento,jCboTipo, jTxtValor,jTxtArDescricao,jTxtDataAtendimento,jTxtIdCliente,jBtnConfirmar, jBtnCancelar );
     }
+    public Historicoatendimento viewBean() {
+    Historicoatendimento atendimento = new Historicoatendimento();
+
+    atendimento.setIaaIdAtendimento(Util.strToInt(jTxtIdAtendente.getText()));
+    atendimento.setIaaIdAtendimento(Util.strToInt(jTxtIdAtendimento.getText()));
+    atendimento.setIaaValor(Util.strToDouble(jTxtValor.getText()));
+    atendimento.setIaaDescricao(jTxtArDescricao.getText());
+    atendimento.setIaaDataAtendimento(Util.strToDate(jTxtDataAtendimento.getText()));
+    atendimento.setIaaIdCliente(Util.strToInt(jTxtIdCliente.getText()));
+
+    return atendimento;
+}
+
+public void beanView(Historicoatendimento atendimento) {
+    jTxtIdAtendente.setText(Util.intToStr(atendimento.getIaaIdAtendimento()));
+    jTxtIdAtendimento.setText(Util.intToStr(atendimento.getIaaIdAtendimento()));
+    jTxtValor.setText(Util.doubleToStr(atendimento.getIaaValor()));
+    jTxtArDescricao.setText(atendimento.getIaaDescricao());
+    jTxtDataAtendimento.setText(Util.dateToStr(atendimento.getIaaDataAtendimento()));
+    jTxtIdCliente.setText(Util.intToStr(atendimento.getIaaIdCliente()));
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -234,7 +260,6 @@ public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-        Util.mensagem("Oie");
         JDlgHistoricoAtedimentoPesquisar JDlgHistoricoAtedimentoPesquisar = new JDlgHistoricoAtedimentoPesquisar(null, true);
         JDlgHistoricoAtedimentoPesquisar.setTelaPai(this);
         JDlgHistoricoAtedimentoPesquisar.setVisible(true);
@@ -242,20 +267,33 @@ public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true,jTxtIdAtendente,jTxtIdAtendimento,jTxtValor,jTxtArDescricao,jTxtDataAtendimento,jTxtIdCliente, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(true,jTxtIdAtendente,jTxtIdAtendimento,jTxtValor,jCboTipo,jTxtArDescricao,jTxtDataAtendimento,jTxtIdCliente, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+         jTxtIdAtendente.grabFocus();
+        incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        Util.perguntar("Deseja excluir?");
+        if (Util.perguntar("Deseja Excluir?") == true) {
+            HistoricoAtendimentoDAO atendimentoDAO = new HistoricoAtendimentoDAO();
+            atendimentoDAO.delete(viewBean());
+        }
+                Util.limpar(jTxtIdAtendente,jTxtIdAtendimento,jTxtValor,jTxtArDescricao,jTxtDataAtendimento,jTxtIdCliente);
+
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false,jTxtIdAtendimento,jTxtValor,jTxtArDescricao,jTxtDataAtendimento,jTxtIdCliente, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(false,jTxtIdAtendimento,jTxtValor,jTxtArDescricao,jTxtDataAtendimento,jTxtIdCliente,jTxtIdAtendente, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.limpar(jTxtIdAtendente,jTxtIdAtendimento,jTxtValor,jTxtArDescricao,jTxtDataAtendimento,jTxtIdCliente);
+        HistoricoAtendimentoDAO atendimentoDAO = new HistoricoAtendimentoDAO();
+        if (incluir == true) {
+            atendimentoDAO.insert(viewBean());
+        } else {
+            atendimentoDAO.update(viewBean());
+        }
+        Util.limpar(jTxtIdAtendente,jTxtIdAtendimento, jCboTipo,jTxtIdAtendente ,jTxtValor,jTxtArDescricao,jTxtDataAtendimento,jTxtIdCliente);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -269,6 +307,10 @@ public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
         // TODO add your handling code here:
         Util.habilitar(true,jTxtIdAtendente,jTxtIdAtendimento,jTxtValor,jTxtArDescricao,jTxtDataAtendimento,jTxtIdCliente, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+          incluir = false;
+        jTxtValor.grabFocus();
+                Util.limpar(jTxtIdAtendente,jTxtIdAtendimento,jTxtValor,jTxtArDescricao,jTxtDataAtendimento,jTxtIdCliente);
+
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     /**

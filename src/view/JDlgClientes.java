@@ -5,9 +5,7 @@
 package view;
 
 import bean.Clientes;
-import bean.Usuarios;
 import dao.ClientesDAO;
-import dao.UsuariosDAO;
 import tools.Util;
 
 /**
