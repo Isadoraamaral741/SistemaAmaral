@@ -5,6 +5,7 @@
 package view;
 
 
+import bean.Usuarios;
 import dao.UsuariosDAO;
 import dao.VendasDAO;
 import java.util.List;
@@ -29,7 +30,7 @@ public class JDlgVendasPesquisar extends javax.swing.JDialog {
         List lista = (List) vendasDAO.listAll();
         controllerVendas = new ControllerVendas();
         controllerVendas.setList(lista);
-        jTable1.setModel((TableModel) controllerVendas);
+        jTable1.setModel(controllerVendas);
        
     }
         public void setTelaPai(JDlgVenda jDlgVenda){
@@ -96,8 +97,8 @@ public class JDlgVendasPesquisar extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
-    
-   
+         int linSel = jTable1.getSelectedRow();
+      
         setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 

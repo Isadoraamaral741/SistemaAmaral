@@ -14,26 +14,28 @@ import javax.swing.table.TableModel;
  * @author isado
  */
 public class JDlgProdutosPesquisar extends javax.swing.JDialog {
+private JDlgProdutos jDlgProdutos;
+ControllerProduto controllerProdutos;
 
-    private JDlgProdutos jDlgProdutos;
-    ControllerProduto controllerProduto;
-    /**
-     * Creates new form JDlgProdutosPesquisar
-     */
-    public JDlgProdutosPesquisar(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setLocationRelativeTo(null);
-           ProdutosDAO produtosDAO = new ProdutosDAO();
-        List lista = (List) produtosDAO.listAll();
-         controllerProduto = new ControllerProduto();
-        controllerProduto.setList(lista);
-        jTable1.setModel((TableModel) controllerProduto);
-       
-    }
-      public void setTelaPai(JDlgProdutos jDlgProdutos){
-       this.jDlgProdutos = jDlgProdutos;
-       }
+/**
+ * Creates new form JDlgProdutosPesquisar
+ */
+public JDlgProdutosPesquisar(java.awt.Frame parent, boolean modal) {
+    super(parent, modal);
+    initComponents();
+    setLocationRelativeTo(null);
+
+    ProdutosDAO produtosDAO = new ProdutosDAO();
+    List lista = (List) produtosDAO.listAll();
+
+    controllerProdutos = new ControllerProduto();
+    controllerProdutos.setList(lista);
+    jTable1.setModel(controllerProdutos);
+}
+
+public void setTelaPai(JDlgProdutos jDlgProdutos) {
+    this.jDlgProdutos = jDlgProdutos;
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

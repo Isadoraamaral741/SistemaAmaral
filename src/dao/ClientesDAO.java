@@ -17,12 +17,13 @@ import org.hibernate.criterion.Restrictions;
  */
 public  class ClientesDAO extends DAOAbstract {
 
-      @Override
-    public void insert(Object object) {
-        session.beginTransaction();
-        session.save(object);
-        session.getTransaction().commit();
-    }
+ 
+    @Override
+    public void insert(Object objeto) {
+    session.beginTransaction();
+    session.save(objeto);
+    session.getTransaction().commit();
+}
     
     
     @Override

@@ -17,7 +17,7 @@ import tools.Util;
  * @author u10916731103
  */
 public class JDlgUsuarios extends javax.swing.JDialog {
-
+           
    boolean pesquisa = false;
    private boolean incluir;
 

@@ -12,7 +12,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author isado
  */
-public class ControllerHistoricoAtendimento {
+public class ControllerHistoricoAtendimento extends AbstractTableModel{
         List lista;
 
     public void setList(List lista) {

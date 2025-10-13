@@ -1,22 +1,25 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package view;
 
 import bean.Clientes;
 import bean.Usuarios;
-import dao.UsuariosDAO;
+import dao.ClientesDAO;
 import java.util.List;
-import javax.swing.table.TableModel;
 
 /**
  *
- * @author isado
+ * @author ugoce
  */
 public class JDlgClientesPesquisar extends javax.swing.JDialog {
 
-    private JDlgClientes jDlgClientes;
+    /**
+     * Creates new form JDlgClientesPesquisar
+     */
+   private JDlgClientes jDlgClientes;
        ControllerClientes controllerClientes;
     /**
      * Creates new form JDlgClientesPesquisar
@@ -25,15 +28,16 @@ public class JDlgClientesPesquisar extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-         UsuariosDAO usuariosDAO = new UsuariosDAO();
-        List lista = (List) usuariosDAO.listAll();
+        ClientesDAO clientesDAO = new ClientesDAO();
+        List lista = (List) clientesDAO.listAll();
         controllerClientes = new ControllerClientes();
         controllerClientes.setList(lista);
-        jTable1.setModel((TableModel) controllerClientes);
+        jTable1.setModel(controllerClientes);
     }
-       public void setTelaPai(JDlgClientes jDlgClientes){
+        public void setTelaPai(JDlgClientes jDlgClientes){
        this.jDlgClientes = jDlgClientes;
        }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -73,21 +77,19 @@ public class JDlgClientesPesquisar extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jBtnOk)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtnOk)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
                 .addComponent(jBtnOk)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(48, 48, 48))
         );
 
         pack();
@@ -95,9 +97,9 @@ public class JDlgClientesPesquisar extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
- int linSel = jTable1.getSelectedRow();
+         int linSel = jTable1.getSelectedRow();
         Clientes clientes = (Clientes) controllerClientes.getBean(linSel);
-      //  jDlgClientes.beanView(clientes);
+        jDlgClientes.beanView(clientes);
         setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 

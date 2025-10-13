@@ -69,20 +69,12 @@
                                   <Component id="jLblEstado" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                                  <Component id="jLblBairro" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-                                          <Component id="jLblBairro" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
-                                          <Component id="jRdoFeminino" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLblSexo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCbxSexo" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLblSexo" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -107,10 +99,6 @@
                                   <Component id="jTxtEmail" min="-2" pref="95" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="jRdoMasculino" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -155,46 +143,33 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                              <Component id="jLblNome" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="jLblCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLblBairro" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="jLblSexo" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTxtIdCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTxtNome" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTxtApelido" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                      <Component id="jLblNome" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="jLblCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLblBairro" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                      <Component id="jRdoFeminino" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jLblSexo" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jTxtIdCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTxtNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTxtApelido" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="jCbxSexo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLblDatadenascimento" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="JLblRg" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRdoMasculino" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLblEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTxtDataNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTxtCpf" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTxtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLblDatadenascimento" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="JLblRg" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLblEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jTxtDataNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTxtCpf" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTxtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -344,26 +319,6 @@
         <Property name="text" type="java.lang.String" value="Ativo"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Feminino"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="jRdoFeminino">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRdoFemininoActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Masculino"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="jRdoMasculino">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRdoMasculinoActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JCheckBox" name="jChbAtivo">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jChbAtivoActionPerformed"/>
@@ -471,6 +426,23 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnPesquisarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jCbxSexo">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="Feminino"/>
+            <StringItem index="1" value="Masculino"/>
+            <StringItem index="2" value=" "/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCbxSexoActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
