@@ -5,7 +5,9 @@
 package view;
 
 
+import bean.Produtos;
 import bean.Usuarios;
+import bean.Vendas;
 import dao.UsuariosDAO;
 import dao.VendasDAO;
 import java.util.List;
@@ -97,8 +99,9 @@ public class JDlgVendasPesquisar extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
-         int linSel = jTable1.getSelectedRow();
-      
+       int linSel = jTable1.getSelectedRow();
+       Vendas vendas = (Vendas) controllerVendas.getBean(linSel);
+        jDlgVenda.beanView(vendas);
         setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 

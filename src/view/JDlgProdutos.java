@@ -289,7 +289,7 @@ public class JDlgProdutos extends javax.swing.JDialog {
         // TODO add your handling code here:
         Util.habilitar(false,jTxtIdProduto,jTxtArDescricao,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho, jTxtArDescricao, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.limpar(jTxtIdProduto,jTxtArDescricao,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho,jTxtArDescricao);
+        Util.limpar(jTxtIdProduto,jTxtArDescricao,jTxtCategoria,jTxtEstoque,jTxtNome,jTxtPreco,jTxtTamanho,jTxtArDescricao );
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
@@ -298,6 +298,7 @@ public class JDlgProdutos extends javax.swing.JDialog {
         JDlgProdutosPesquisar JDlgProdutosPesquisar = new JDlgProdutosPesquisar(null, true);
         JDlgProdutosPesquisar.setTelaPai(this);
         JDlgProdutosPesquisar.setVisible(true);
+        pesquisa = true;
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     /**

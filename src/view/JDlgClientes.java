@@ -505,7 +505,7 @@ if (jCbxSexo.getSelectedItem().equals("Feminino")) {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-         Util.habilitar(true,jTxtIdCliente,jTxtApelido,jTxtNome, jTxtCep,jCbxSexo,jTxtCidade,jTxtDataCadastro, jTxtCpf, jTxtEmail, jTxtPais, jTxtSenha, jTxtTelefone, jTxtDataNascimento, jBtnConfirmar, jBtnCancelar);
+         Util.habilitar(true,jTxtIdCliente,jTxtApelido,jTxtNome,jTxtEndereco, jTxtCep,jCbxSexo,jTxtCidade,jTxtDataCadastro, jTxtCpf, jTxtEmail, jTxtPais, jTxtSenha, jTxtTelefone, jTxtDataNascimento, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
          jTxtIdCliente.grabFocus();
         incluir = true;

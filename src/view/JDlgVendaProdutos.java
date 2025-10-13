@@ -47,8 +47,6 @@ public class JDlgVendaProdutos extends javax.swing.JDialog {
         jTxtObservacao = new javax.swing.JTextArea();
         jTxtPedido = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jBtnPesquisar = new javax.swing.JButton();
         jBtnIncluir = new javax.swing.JButton();
         jBtnAlterar = new javax.swing.JButton();
@@ -75,19 +73,6 @@ public class JDlgVendaProdutos extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTxtObservacao);
 
         jLabel3.setText("Produto");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
 
         jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar.png"))); // NOI18N
         jBtnPesquisar.setText("Pesquisar");
@@ -141,25 +126,22 @@ public class JDlgVendaProdutos extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBtnIncluir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnAlterar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnExcluir))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBtnConfirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtnCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnPesquisar)))
-                .addGap(0, 168, Short.MAX_VALUE))
+                        .addComponent(jBtnPesquisar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBtnIncluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnAlterar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnExcluir)))
+                .addContainerGap(171, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -197,9 +179,7 @@ public class JDlgVendaProdutos extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(124, 124, 124)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(197, 197, 197)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnIncluir)
                     .addComponent(jBtnAlterar)
@@ -209,7 +189,7 @@ public class JDlgVendaProdutos extends javax.swing.JDialog {
                     .addComponent(jBtnConfirmar)
                     .addComponent(jBtnPesquisar)
                     .addComponent(jBtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -235,8 +215,8 @@ public class JDlgVendaProdutos extends javax.swing.JDialog {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jLabel7)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(263, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(121, Short.MAX_VALUE)))
         );
 
         pack();
@@ -339,8 +319,6 @@ public class JDlgVendaProdutos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTxtDesconto;
     private javax.swing.JTextField jTxtIdVendaProduto;
     private javax.swing.JTextArea jTxtObservacao;

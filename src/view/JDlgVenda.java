@@ -4,6 +4,9 @@
  */
 package view;
 
+import bean.Vendas;
+import dao.HistoricoAtendimentoDAO;
+import dao.VendasDAO;
 import tools.Util;
 
 /**
@@ -11,7 +14,8 @@ import tools.Util;
  * @author isado
  */
 public class JDlgVenda extends javax.swing.JDialog {
-
+      boolean pesquisa = false;
+   private boolean incluir;
     /**
      * Creates new form JDlgVenda
      */
@@ -20,9 +24,32 @@ public class JDlgVenda extends javax.swing.JDialog {
         initComponents();
          setTitle(" Venda ");
         setLocationRelativeTo(null);
-        Util.habilitar(false,jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jTxtDataVenda,jTxtTotal,jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(false,jTxtIdVenda,jTxtCliente,jCboStatus,jCboFormaPagamento,jTxtDataEntrega, jTxtDataVenda,jTxtTotal,jBtnConfirmar, jBtnCancelar);
     }
-   
+   public Vendas viewBean() {
+    Vendas vendas = new Vendas();
+
+    vendas.setIaaIdVenda(Util.strToInt(jTxtIdVenda.getText()));
+    vendas.setIaaCliente(Util.strToInt(jTxtCliente.getText()));
+    vendas.setIaaStatus((String) jCboStatus.getSelectedItem());
+    vendas.setIaaFormaPagamento((String) jCboFormaPagamento.getSelectedItem());
+    vendas.setIaaDataEntrega(Util.strToDate(jTxtDataEntrega.getText()));
+    vendas.setIaaDataVenda(Util.strToDate(jTxtDataVenda.getText()));
+    vendas.setIaaTotal(Util.strToDouble(jTxtTotal.getText()));
+
+    return vendas;
+}
+
+public void beanView(Vendas vendas) {
+    jTxtIdVenda.setText(Util.intToStr(vendas.getIaaIdVenda()));
+    jTxtCliente.setText(Util.intToStr(vendas.getIaaCliente()));
+    jCboStatus.setSelectedItem(vendas.getIaaStatus());
+    jCboFormaPagamento.setSelectedItem(vendas.getIaaFormaPagamento());
+    jTxtDataEntrega.setText(Util.dateToStr(vendas.getIaaDataEntrega()));
+    jTxtDataVenda.setText(Util.dateToStr(vendas.getIaaDataVenda()));
+    jTxtTotal.setText(Util.doubleToStr(vendas.getIaaTotal()));
+}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,6 +79,11 @@ public class JDlgVenda extends javax.swing.JDialog {
         jBtnConfirmar = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
         jBtnPesquisar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -132,56 +164,87 @@ public class JDlgVenda extends javax.swing.JDialog {
             }
         });
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar.png"))); // NOI18N
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Excluir.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTxtIdVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel5)
+                                .addComponent(jCboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jTxtDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel3)
+                                            .addGap(76, 76, 76)
+                                            .addComponent(jLabel4))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jTxtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jTxtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel7))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jCboFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jTxtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jBtnIncluir)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jBtnAlterar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jBtnExcluir))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jBtnConfirmar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jBtnCancelar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jBtnPesquisar))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTxtIdVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel5)
-                            .addComponent(jCboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jTxtDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(76, 76, 76)
-                                        .addComponent(jLabel4))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTxtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTxtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel7))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jCboFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTxtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBtnIncluir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnAlterar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnExcluir))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBtnConfirmar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnPesquisar)))
-                .addContainerGap(126, Short.MAX_VALUE))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,7 +271,16 @@ public class JDlgVenda extends javax.swing.JDialog {
                     .addComponent(jCboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCboFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(245, 245, 245)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(5, 5, 5)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)))
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnIncluir)
                     .addComponent(jBtnAlterar)
@@ -217,8 +289,8 @@ public class JDlgVenda extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnConfirmar)
                     .addComponent(jBtnPesquisar)
-                    .addComponent(jBtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, Short.MAX_VALUE))
-                .addGap(20, 20, 20))
+                    .addComponent(jBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(38, 38, 38))
         );
 
         pack();
@@ -234,33 +306,48 @@ public class JDlgVenda extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true,jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jTxtDataVenda,jTxtTotal, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(true,jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jTxtDataVenda,jCboStatus,jCboFormaPagamento,jTxtTotal, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+         jTxtIdVenda.grabFocus();
+        incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true,jTxtCliente,jTxtDataEntrega, jTxtDataVenda,jTxtTotal, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(true,jTxtCliente,jTxtDataEntrega, jTxtDataVenda,jTxtTotal,jCboStatus,jCboFormaPagamento, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+         incluir = false;
+        jTxtCliente.grabFocus();
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
-        Util.perguntar("Deseja excluir?");
+        if (Util.perguntar("Deseja Excluir?") == true) {
+            VendasDAO vendasDAO = new VendasDAO();
+            vendasDAO.delete(viewBean());
+        }
+                Util.limpar(jTxtIdVenda,jTxtCliente,jTxtDataEntrega,jCboStatus,jCboFormaPagamento, jTxtDataVenda,jTxtTotal);
+
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false,jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jTxtDataVenda,jTxtTotal, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(false,jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jTxtDataVenda,jCboStatus,jCboFormaPagamento,jTxtTotal, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.limpar(jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jTxtDataVenda,jTxtTotal);
+         VendasDAO vendasDAO = new VendasDAO();
+        if (incluir == true) {
+            vendasDAO.insert(viewBean());
+        } else {
+            vendasDAO.update(viewBean());
+        }
+        Util.limpar(jTxtIdVenda,jTxtCliente,jTxtDataEntrega,jCboStatus,jCboFormaPagamento, jTxtDataVenda,jTxtTotal);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false,jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jTxtDataVenda,jTxtTotal, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(false,jTxtIdVenda,jTxtCliente,jTxtDataEntrega,jCboStatus,jCboFormaPagamento, jTxtDataVenda,jTxtTotal, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.limpar(jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jTxtDataVenda,jTxtTotal);
+        Util.limpar(jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jCboStatus,jCboFormaPagamento,jTxtDataVenda,jTxtTotal);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
@@ -270,6 +357,15 @@ public class JDlgVenda extends javax.swing.JDialog {
         JDlgVendasPesquisar.setTelaPai(this);
         JDlgVendasPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        JDlgVendaProdutos jDlgVendaProdutos = new JDlgVendaProdutos(null,true);
+        jDlgVendaProdutos.setVisible(true);
+                Util.limpar(jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jCboStatus,jCboFormaPagamento,jTxtDataVenda,jTxtTotal);
+
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -320,6 +416,9 @@ public class JDlgVenda extends javax.swing.JDialog {
     private javax.swing.JButton jBtnExcluir;
     private javax.swing.JButton jBtnIncluir;
     private javax.swing.JButton jBtnPesquisar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jCboFormaPagamento;
     private javax.swing.JComboBox<String> jCboStatus;
     private javax.swing.JLabel jLabel1;
@@ -329,6 +428,8 @@ public class JDlgVenda extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTxtCliente;
     private javax.swing.JTextField jTxtDataEntrega;
     private javax.swing.JTextField jTxtDataVenda;
