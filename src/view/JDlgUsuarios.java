@@ -29,6 +29,8 @@ public class JDlgUsuarios extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         Util.habilitar(false,jTxtCodigo,jTxtNome,jTxtApelido, jFmtCpf,
                 jFmtDataDeNascimento,jCboNivel,jPwfSenha,  jChbAtivo, jCboNivel, jBtnConfirmar, jBtnCancelar);
+        
+        
 
     }
     
@@ -359,7 +361,7 @@ if (Util.perguntar("Deseja Excluir?") == true) {
     }//GEN-LAST:event_jTxtCodigoFocusLost
 
     private void jCboNivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboNivelActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:    
     }//GEN-LAST:event_jCboNivelActionPerformed
 
     /**
