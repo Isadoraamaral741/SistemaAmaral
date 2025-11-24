@@ -35,11 +35,9 @@
                           <Component id="jTxtCodigo" alignment="0" min="-2" pref="187" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="jPwfSenha" pref="169" max="32767" attributes="0"/>
-                                      <Component id="jFmtCpf" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="jFmtCpf" alignment="0" min="-2" pref="169" max="-2" attributes="0"/>
                                   <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jPwdSenha" alignment="0" min="-2" pref="133" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -121,8 +119,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jChbAtivo" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jPwfSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jCboNivel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPwdSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel8" min="-2" pref="21" max="-2" attributes="0"/>
               </Group>
@@ -186,8 +184,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Senha"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JPasswordField" name="jPwfSenha">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
@@ -283,6 +279,11 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnPesquisarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="jPwdSenha">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPwdSenhaActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

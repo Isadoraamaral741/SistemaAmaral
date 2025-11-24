@@ -3,6 +3,8 @@ package tools;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -41,41 +43,33 @@ public class Util {
     }
 
    
-    public static int strToInt(String cad) {
-        try {
-            return Integer.parseInt(cad.trim());
-        } catch (Exception e) {
-            return 0;
-        }
+      public static int strToInt(String cad){
+        return Integer.parseInt(cad);
     }
-
-    public static String intToStr(int num) {
+    public static String intToStr(int num){
+        return String.valueOf(num);
+    }
+    public static double strToDouble(String cad){
+        return Double.parseDouble(cad);
+    }
+    public static String doubleToStr(double num){
         return String.valueOf(num);
     }
 
-    public static double strToDouble(String cad) {
+    public static Date strToDate(String cad){
         try {
-            return Double.parseDouble(cad.trim().replace(",", "."));
-        } catch (Exception e) {
-            return 0.0;
+            SimpleDateFormat dataNascFormat = new SimpleDateFormat("dd/MM/yyyy");
+            return dataNascFormat.parse(cad);
+        } catch (ParseException ex) {
+            Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
-
-    public static String doubleToStr(double num) {
-        return String.format("%.2f", num);
-    }
-
-
-    public static Date strToDate(String cad) {
-        try {
-            return new SimpleDateFormat("dd/MM/yyyy").parse(cad);
-        } catch (ParseException e) {
-            return null;
-        }
-    }
-
-    public static String dateToStr(Date data) {
-        if (data == null) return "";
-        return new SimpleDateFormat("dd/MM/yyyy").format(data);
-    }
+    public static String dateToStr(Date dataNasc){
+        if(dataNasc == null )return "";
+        SimpleDateFormat dataNascFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dataNascFormat.format(dataNasc);
+    } 
+    
+    
 }

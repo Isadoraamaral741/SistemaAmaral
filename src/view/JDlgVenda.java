@@ -7,6 +7,9 @@ package view;
 import bean.Vendas;
 import dao.HistoricoAtendimentoDAO;
 import dao.VendasDAO;
+import java.text.ParseException;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import tools.Util;
 
 /**
@@ -24,7 +27,19 @@ public class JDlgVenda extends javax.swing.JDialog {
         initComponents();
          setTitle(" Venda ");
         setLocationRelativeTo(null);
-        Util.habilitar(false,jTxtIdVenda,jTxtCliente,jCboStatus,jCboFormaPagamento,jTxtDataEntrega, jTxtDataVenda,jTxtTotal,jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(false,jTxtIdVenda,jTxtCliente,jCboStatus,jCboFormaPagamento,jFmtDataEntrega, jFmtDataVenda,jTxtTotal,jBtnConfirmar, jBtnCancelar);
+        try {
+        MaskFormatter mascara = new MaskFormatter("##/##/####");
+        jFmtDataEntrega.setFormatterFactory(new DefaultFormatterFactory(mascara));
+    } catch (ParseException ex) {
+        ex.printStackTrace();
+    }
+        try {
+        MaskFormatter mascara = new MaskFormatter("##/##/####");
+        jFmtDataVenda.setFormatterFactory(new DefaultFormatterFactory(mascara));
+    } catch (ParseException ex) {
+        ex.printStackTrace();
+    }
     }
    public Vendas viewBean() {
     Vendas vendas = new Vendas();
@@ -33,8 +48,8 @@ public class JDlgVenda extends javax.swing.JDialog {
     vendas.setIaaCliente(Util.strToInt(jTxtCliente.getText()));
     vendas.setIaaStatus((String) jCboStatus.getSelectedItem());
     vendas.setIaaFormaPagamento((String) jCboFormaPagamento.getSelectedItem());
-    vendas.setIaaDataEntrega(Util.strToDate(jTxtDataEntrega.getText()));
-    vendas.setIaaDataVenda(Util.strToDate(jTxtDataVenda.getText()));
+    vendas.setIaaDataEntrega(Util.strToDate(jFmtDataEntrega.getText()));
+    vendas.setIaaDataVenda(Util.strToDate(jFmtDataVenda.getText()));
     vendas.setIaaTotal(Util.strToDouble(jTxtTotal.getText()));
 
     return vendas;
@@ -45,8 +60,8 @@ public void beanView(Vendas vendas) {
     jTxtCliente.setText(Util.intToStr(vendas.getIaaCliente()));
     jCboStatus.setSelectedItem(vendas.getIaaStatus());
     jCboFormaPagamento.setSelectedItem(vendas.getIaaFormaPagamento());
-    jTxtDataEntrega.setText(Util.dateToStr(vendas.getIaaDataEntrega()));
-    jTxtDataVenda.setText(Util.dateToStr(vendas.getIaaDataVenda()));
+    jFmtDataEntrega.setText(Util.dateToStr(vendas.getIaaDataEntrega()));
+    jFmtDataVenda.setText(Util.dateToStr(vendas.getIaaDataVenda()));
     jTxtTotal.setText(Util.doubleToStr(vendas.getIaaTotal()));
 }
 
@@ -59,8 +74,6 @@ public void beanView(Vendas vendas) {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTxtDataEntrega = new javax.swing.JTextField();
-        jTxtDataVenda = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTxtCliente = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -84,6 +97,8 @@ public void beanView(Vendas vendas) {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jFmtDataVenda = new javax.swing.JFormattedTextField();
+        jFmtDataEntrega = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -208,25 +223,23 @@ public void beanView(Vendas vendas) {
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel2)
-                                        .addComponent(jTxtDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jFmtDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addGap(76, 76, 76)
-                                            .addComponent(jLabel4))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jTxtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jTxtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jTxtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jTxtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jCboFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel7))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jCboFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTxtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jFmtDataEntrega)))))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jBtnIncluir)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -244,7 +257,7 @@ public void beanView(Vendas vendas) {
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,9 +271,9 @@ public void beanView(Vendas vendas) {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtIdVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFmtDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -270,7 +283,7 @@ public void beanView(Vendas vendas) {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCboFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFmtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -306,7 +319,7 @@ public void beanView(Vendas vendas) {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true,jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jTxtDataVenda,jCboStatus,jCboFormaPagamento,jTxtTotal, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(true,jTxtIdVenda,jTxtCliente,jFmtDataEntrega, jFmtDataVenda,jCboStatus,jCboFormaPagamento,jTxtTotal, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
          jTxtIdVenda.grabFocus();
         incluir = true;
@@ -314,7 +327,7 @@ public void beanView(Vendas vendas) {
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true,jTxtCliente,jTxtDataEntrega, jTxtDataVenda,jTxtTotal,jCboStatus,jCboFormaPagamento, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(true,jTxtCliente,jFmtDataEntrega, jFmtDataVenda,jTxtTotal,jCboStatus,jCboFormaPagamento, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
          incluir = false;
         jTxtCliente.grabFocus();
@@ -326,13 +339,13 @@ public void beanView(Vendas vendas) {
             VendasDAO vendasDAO = new VendasDAO();
             vendasDAO.delete(viewBean());
         }
-                Util.limpar(jTxtIdVenda,jTxtCliente,jTxtDataEntrega,jCboStatus,jCboFormaPagamento, jTxtDataVenda,jTxtTotal);
+                Util.limpar(jTxtIdVenda,jTxtCliente,jFmtDataEntrega,jCboStatus,jCboFormaPagamento, jFmtDataVenda,jTxtTotal);
 
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false,jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jTxtDataVenda,jCboStatus,jCboFormaPagamento,jTxtTotal, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(false,jTxtIdVenda,jTxtCliente,jFmtDataEntrega, jFmtDataVenda,jCboStatus,jCboFormaPagamento,jTxtTotal, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
          VendasDAO vendasDAO = new VendasDAO();
         if (incluir == true) {
@@ -340,14 +353,14 @@ public void beanView(Vendas vendas) {
         } else {
             vendasDAO.update(viewBean());
         }
-        Util.limpar(jTxtIdVenda,jTxtCliente,jTxtDataEntrega,jCboStatus,jCboFormaPagamento, jTxtDataVenda,jTxtTotal);
+        Util.limpar(jTxtIdVenda,jTxtCliente,jFmtDataEntrega,jCboStatus,jCboFormaPagamento, jFmtDataVenda,jTxtTotal);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false,jTxtIdVenda,jTxtCliente,jTxtDataEntrega,jCboStatus,jCboFormaPagamento, jTxtDataVenda,jTxtTotal, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(false,jTxtIdVenda,jTxtCliente,jFmtDataEntrega,jCboStatus,jCboFormaPagamento, jFmtDataVenda,jTxtTotal, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.limpar(jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jCboStatus,jCboFormaPagamento,jTxtDataVenda,jTxtTotal);
+        Util.limpar(jTxtIdVenda,jTxtCliente,jFmtDataEntrega, jCboStatus,jCboFormaPagamento,jFmtDataVenda,jTxtTotal);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
@@ -362,7 +375,7 @@ public void beanView(Vendas vendas) {
         // TODO add your handling code here:
         JDlgVendaProdutos jDlgVendaProdutos = new JDlgVendaProdutos(null,true);
         jDlgVendaProdutos.setVisible(true);
-                Util.limpar(jTxtIdVenda,jTxtCliente,jTxtDataEntrega, jCboStatus,jCboFormaPagamento,jTxtDataVenda,jTxtTotal);
+                Util.limpar(jTxtIdVenda,jTxtCliente,jFmtDataEntrega, jCboStatus,jCboFormaPagamento,jFmtDataVenda,jTxtTotal);
 
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -421,6 +434,8 @@ public void beanView(Vendas vendas) {
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jCboFormaPagamento;
     private javax.swing.JComboBox<String> jCboStatus;
+    private javax.swing.JFormattedTextField jFmtDataEntrega;
+    private javax.swing.JFormattedTextField jFmtDataVenda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -431,8 +446,6 @@ public void beanView(Vendas vendas) {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTxtCliente;
-    private javax.swing.JTextField jTxtDataEntrega;
-    private javax.swing.JTextField jTxtDataVenda;
     private javax.swing.JTextField jTxtIdVenda;
     private javax.swing.JTextField jTxtTotal;
     // End of variables declaration//GEN-END:variables

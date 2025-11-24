@@ -91,11 +91,11 @@ public class JDlgProdutos extends javax.swing.JDialog {
 
         jLblCategoria.setText("Categoria");
 
-        jLblProduto.setText("Produto:");
+        jLblProduto.setText("Produto");
 
-        jLblPreco.setText("Preco");
+        jLblPreco.setText("Preço");
 
-        jLblNome.setText("Nome:");
+        jLblNome.setText("Nome");
 
         jLblDataDeCadastro.setText("Estoque");
 
