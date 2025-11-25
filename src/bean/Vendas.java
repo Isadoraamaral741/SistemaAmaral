@@ -22,7 +22,7 @@ public class Vendas  implements java.io.Serializable {
 
      private int iaaIdVenda;
      private Date iaaDataVenda;
-     private int iaaCliente;
+     private String iaaCliente;
      private double iaaTotal;
      private String iaaStatus;
      private String iaaFormaPagamento;
@@ -32,13 +32,13 @@ public class Vendas  implements java.io.Serializable {
     }
 
 	
-    public Vendas(int iaaIdVenda, int iaaCliente, double iaaTotal, String iaaStatus) {
+    public Vendas(int iaaIdVenda, String iaaCliente, double iaaTotal, String iaaStatus) {
         this.iaaIdVenda = iaaIdVenda;
         this.iaaCliente = iaaCliente;
         this.iaaTotal = iaaTotal;
         this.iaaStatus = iaaStatus;
     }
-    public Vendas(int iaaIdVenda, Date iaaDataVenda, int iaaCliente, double iaaTotal, String iaaStatus, String iaaFormaPagamento, Date iaaDataEntrega) {
+    public Vendas(int iaaIdVenda, Date iaaDataVenda, String iaaCliente, double iaaTotal, String iaaStatus, String iaaFormaPagamento, Date iaaDataEntrega) {
        this.iaaIdVenda = iaaIdVenda;
        this.iaaDataVenda = iaaDataVenda;
        this.iaaCliente = iaaCliente;
@@ -72,11 +72,11 @@ public class Vendas  implements java.io.Serializable {
 
     
     @Column(name="iaaCliente", nullable=false)
-    public int getIaaCliente() {
+    public String getIaaCliente() {
         return this.iaaCliente;
     }
     
-    public void setIaaCliente(int iaaCliente) {
+    public void setIaaCliente(String iaaCliente) {
         this.iaaCliente = iaaCliente;
     }
 
@@ -121,7 +121,19 @@ public class Vendas  implements java.io.Serializable {
     }
 
 
-
+    public String toString(){
+        return this.iaaCliente;
+    }
+    @Override
+     public boolean equals (Object object){
+        if(object instanceof Vendas){
+            Vendas vendas = (Vendas)object;
+        if(this.iaaCliente == vendas.getIaaCliente()) {
+            return true;
+        }
+        }
+        return false;
+    }
 
 }
 

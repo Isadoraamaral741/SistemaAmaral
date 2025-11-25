@@ -369,7 +369,7 @@ if (Util.perguntar("Deseja Excluir?") == true) {
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
   Util.habilitar(false,jTxtCodigo,jTxtNome,jTxtApelido, jFmtCpf,
-                jFmtDataDeNascimento,jCboNivel,jPwdSenha,  jChbAtivo, jCboNivel, jBtnConfirmar, jBtnCancelar);
+                 jFmtDataDeNascimento,jCboNivel,jPwdSenha,  jChbAtivo, jCboNivel, jBtnConfirmar, jBtnCancelar);
    Util.habilitar(true,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
      Util.limpar(jTxtCodigo,jTxtNome,jTxtApelido, jFmtCpf, jFmtDataDeNascimento,jPwdSenha,  jChbAtivo, jCboNivel);
     }//GEN-LAST:event_jBtnCancelarActionPerformed

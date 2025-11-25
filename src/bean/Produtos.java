@@ -109,7 +109,19 @@ public class Produtos  implements java.io.Serializable {
     public void setIaaDescricao(String iaaDescricao) {
         this.iaaDescricao = iaaDescricao;
     }
-
+    public String toString(){
+        return this.iaaNome;
+    }
+    @Override
+     public boolean equals (Object object){
+        if(object instanceof Produtos){
+            Produtos produtos = (Produtos)object;
+        if(this.iaaIdProdutos == produtos.getIaaIdProdutos()) {
+            return true;
+        }
+        }
+        return false;
+    }
 
 
 
