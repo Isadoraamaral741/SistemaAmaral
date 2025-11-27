@@ -40,11 +40,11 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="db_isadora_amaral"/>
-  <table-filter match-name="produtos"/>
-  <table-filter match-name="historicoatendimento"/>
-  <table-filter match-name="clientes"/>
-  <table-filter match-name="vendas"/>
-  <table-filter match-name="venda_produto"/>
-  <table-filter match-name="usuarios"/>
+    <schema-selection match-catalog="db_isadora_amaral"/>
+    <table-filter match-name="produtos"/>
+    <table-filter match-name="historicoatendimento"/>
+    <table-filter match-name="clientes"/>
+    <table-filter match-name="vendas"/>
+    <table-filter match-name="venda_produto"/>
+    <table-filter match-name="usuarios"/>
 </hibernate-reverse-engineering>

@@ -7,7 +7,6 @@ package dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import dao.NewHibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 

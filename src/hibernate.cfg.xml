@@ -41,16 +41,8 @@ Contributor(s):
 -->
 <hibernate-configuration>
   <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://10.7.0.51:33062/db_isadora_amaral?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">isadora_amaral</property>
-    <property name="hibernate.connection.password">isadora_amaral</property>
-    <mapping class="bean.Usuarios"/>
-    <mapping class="bean.Historicoatendimento"/>
-    <mapping class="bean.VendaProduto"/>
-    <mapping class="bean.Vendas"/>
-    <mapping class="bean.Clientes"/>
-    <mapping class="bean.Produtos"/>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_isadora_amaral?zeroDateTimeBehavior=convertToNull [root em Esquema default]</property>
+    <property name="hibernate.connection.username">root</property>
   </session-factory>
 </hibernate-configuration>

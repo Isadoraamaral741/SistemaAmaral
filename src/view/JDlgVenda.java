@@ -6,11 +6,15 @@ package view;
 
 import bean.Clientes;
 import bean.Vendas;
+import bean.VendaProduto;
 import dao.ClientesDAO;
 import dao.HistoricoAtendimentoDAO;
+import dao.VendaProdutoDAO;
 import dao.VendasDAO;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import tools.Util;
@@ -43,7 +47,19 @@ public class JDlgVenda extends javax.swing.JDialog {
     } catch (ParseException ex) {
         ex.printStackTrace();
     }
+        ClientesDAO clientesDAO = new ClientesDAO();
+        List lista = (List) clientesDAO.listAll();
+        for (int i = 0; i < lista.size(); i++) {
+        jCboCliente.addItem((Clientes) lista.get(i));
+        }
+         ControllerVendaProdutos controllerVendaProdutos;
+         controllerVendaProdutos = new ControllerVendaProdutos();
+        controllerVendaProdutos.setList(new ArrayList());
+        jTable1.setModel(controllerVendaProdutos);
     }
+
+
+    
    public Vendas viewBean() {
     Vendas vendas = new Vendas();
 
@@ -359,12 +375,20 @@ public void beanView(Vendas vendas) {
         Util.habilitar(false,jTxtIdVenda,jCboCliente,jFmtDataEntrega, jFmtDataVenda,jCboStatus,jCboFormaPagamento,jTxtTotal, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
          VendasDAO vendasDAO = new VendasDAO();
-        if (incluir == true) {
-            vendasDAO.insert(viewBean());
+         VendasDAO vendaDAO = new VendasDAO();
+        VendaProdutoDAO vendaProdutoDAO = new VendaProdutoDAO();
+        Vendas venda = viewBean();
+        if (incluir == true){
+            vendaDAO.insert(venda);
+            for (int ind = 0; ind < jTable1.getRowCount(); ind++){
+                VendaProduto vendaProdutos = controllerVendaProduto.getBean(ind);
+                vendaProdutoDAO.insert(vendaProdutos);
+            }
         } else {
-            vendasDAO.update(viewBean());
+            vendaProdutoDAO.update(venda);
         }
         Util.limpar(jTxtIdVenda,jCboCliente,jFmtDataEntrega,jCboStatus,jCboFormaPagamento, jFmtDataVenda,jTxtTotal);
+        controllerVendaProdutos.setList(new ArrayList());
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -393,13 +417,7 @@ public void beanView(Vendas vendas) {
 
     private void jCboClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboClienteActionPerformed
         // TODO add your handling code here:
-        jCboCliente.removeAllItems();
-    ClientesDAO clienteDAO = new ClientesDAO();
-    ArrayList lista = (ArrayList) clienteDAO.listAll();
 
-    for (Object object : lista) {
-    jCboCliente.addItem((Clientes) object);
-}
     }//GEN-LAST:event_jCboClienteActionPerformed
 
     /**

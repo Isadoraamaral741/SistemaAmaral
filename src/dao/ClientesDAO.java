@@ -15,7 +15,7 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author isado
  */
-public  class ClientesDAO extends DAOAbstract {
+public class ClientesDAO extends DAOAbstract {
 
  
     @Override

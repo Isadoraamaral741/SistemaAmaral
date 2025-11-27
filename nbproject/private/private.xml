@@ -12,9 +12,16 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ugoce/Desktop/SistemaAmaral/SistemaAmaral/src/dao/UsuariosDAO.java</file>
-            <file>file:/C:/Users/ugoce/Desktop/SistemaAmaral/SistemaAmaral/src/view/JDlgUsuarios.java</file>
-            <file>file:/C:/Users/ugoce/Desktop/SistemaAmaral/SistemaAmaral/src/bean/Usuarios.java</file>
+            <file>file:/C:/Users/isado/OneDrive/Documentos/NetBeansProjects/SistemaAmaral/src/bean/VendaProduto.java</file>
+            <file>file:/C:/Users/isado/OneDrive/Documentos/NetBeansProjects/SistemaAmaral/src/bean/Vendas.java</file>
+            <file>file:/C:/Users/isado/OneDrive/Documentos/NetBeansProjects/SistemaAmaral/src/view/JDlgVendaProdutosPesquisar.java</file>
+            <file>file:/C:/Users/isado/OneDrive/Documentos/NetBeansProjects/SistemaAmaral/src/view/JDlgVenda.java</file>
+            <file>file:/C:/Users/isado/OneDrive/Documentos/NetBeansProjects/SistemaAmaral/src/view/JDlgUsuarios.java</file>
+            <file>file:/C:/Users/isado/OneDrive/Documentos/NetBeansProjects/SistemaAmaral/src/bean/Produtos.java</file>
+            <file>file:/C:/Users/isado/OneDrive/Documentos/NetBeansProjects/SistemaAmaral/src/view/JDlgProdutos.java</file>
+            <file>file:/C:/Users/isado/OneDrive/Documentos/NetBeansProjects/SistemaAmaral/src/dao/DAOAbstract.java</file>
+            <file>file:/C:/Users/isado/OneDrive/Documentos/NetBeansProjects/SistemaAmaral/src/view/JDlgVendaProdutos.java</file>
+            <file>file:/C:/Users/isado/OneDrive/Documentos/NetBeansProjects/SistemaAmaral/src/view/JDlgVendasPesquisar.java</file>
         </group>
     </open-files>
 </project-private>

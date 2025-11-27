@@ -8,7 +8,10 @@ package view;
 import bean.Clientes;
 import bean.Usuarios;
 import dao.ClientesDAO;
+import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
+import tools.Util;
 
 /**
  *
@@ -37,7 +40,8 @@ public class JDlgClientesPesquisar extends javax.swing.JDialog {
         public void setTelaPai(JDlgClientes jDlgClientes){
        this.jDlgClientes = jDlgClientes;
        }
-
+   
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,6 +68,11 @@ public class JDlgClientesPesquisar extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jBtnOk.setText("Ok");
@@ -97,11 +106,21 @@ public class JDlgClientesPesquisar extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
-         int linSel = jTable1.getSelectedRow();
-        Clientes clientes = (Clientes) controllerClientes.getBean(linSel);
+          if (jTable1.getSelectedRow() == -1){
+            Util.mensagem("Selecione");
+        } else {
+        Clientes clientes =  (Clientes) controllerClientes.getBean( jTable1.getSelectedRow() );
         jDlgClientes.beanView(clientes);
-        setVisible(false);
+        this.setVisible(false);
+        }
     }//GEN-LAST:event_jBtnOkActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+         if (evt.getClickCount() == 2){
+        jBtnOkActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
