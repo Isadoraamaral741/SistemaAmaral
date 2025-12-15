@@ -37,10 +37,10 @@ public class ControllerHistoricoAtendimento extends AbstractTableModel{
             return historicoAtendimento.getIaaIdAtendimento();
         }
         if (columnIndex == 1) {
-            return historicoAtendimento.getIaaIdClientes();
+            return historicoAtendimento.getIaaTipoAtendimento();
         }
         if (columnIndex == 2) {
-            return historicoAtendimento.getIaaDataAtendimento();
+            return historicoAtendimento.getIaaIdUsuarios();
         }
         if (columnIndex == 3) {
             return historicoAtendimento.getIaaValor();
@@ -53,13 +53,13 @@ public class ControllerHistoricoAtendimento extends AbstractTableModel{
             return "Código";
         }
         if (column == 1) {
-            return "Cliente";
+            return "Nome";
         }
         if (column == 2) {
-            return "Data";
+            return "Cpf";
         }
         if (column == 3) {
-            return "Preço";
+            return "Data Nascimento";
         }
         return "";
     }

@@ -51,19 +51,6 @@ public class UsuariosDAO extends DAOAbstract {
         session.getTransaction().commit();
         return lista;
     }
-    
-    public boolean login(String usuario, String senha) {
-        session.beginTransaction();
-        Criteria criteria = session.createCriteria(Usuarios.class);
-        criteria.add(Restrictions.eq("iaaNome", usuario));
-        criteria.add(Restrictions.eq("iaaSenha", senha));
-        List lista = criteria.list();
-        session.getTransaction().commit();
-        if (!lista.isEmpty()) {
-            return true;
-        }
-        return false;
-    }
 
     @Override
         public ArrayList listAll() {

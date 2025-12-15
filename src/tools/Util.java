@@ -10,7 +10,6 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JTextArea;
 
 public class Util {
 
@@ -30,9 +29,6 @@ public class Util {
             }
             if (componente instanceof JCheckBox) {
                 ((JCheckBox) componente).setSelected(false);
-            }
-            if (componente instanceof JTextArea) {
-                ((JTextArea) componente).setText("");
             }
 
         }

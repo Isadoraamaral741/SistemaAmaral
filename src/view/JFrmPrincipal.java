@@ -164,14 +164,14 @@ public class JFrmPrincipal extends javax.swing.JFrame {
 
     private void jMnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnClientesActionPerformed
         // TODO add your handling code here:
-        JDlgClientes jDlgClientes = new JDlgClientes(this, true);
+         JDlgClientes jDlgClientes = new JDlgClientes(this, true);
         jDlgClientes.setVisible(true);
     }//GEN-LAST:event_jMnClientesActionPerformed
 
     private void jMnuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuProdutosActionPerformed
         // TODO add your handling code here:
-        JDlgProdutos jDlgProdutos = new JDlgProdutos(this, true);
-        jDlgProdutos.setVisible(true);
+         JDlgProdutos jDlgProdutos  = new JDlgProdutos (this, true);
+        jDlgProdutos .setVisible(true);
     }//GEN-LAST:event_jMnuProdutosActionPerformed
 
     private void jMnuVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuVendasActionPerformed
@@ -182,7 +182,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
 
     private void jMnuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuUsuariosActionPerformed
         // TODO add your handling code here:
-        JDlgUsuarios jDlgUsuarios = new JDlgUsuarios(this, true);
+         JDlgUsuarios jDlgUsuarios = new JDlgUsuarios(this, true);
         jDlgUsuarios.setVisible(true);
     }//GEN-LAST:event_jMnuUsuariosActionPerformed
 
@@ -194,20 +194,20 @@ public class JFrmPrincipal extends javax.swing.JFrame {
 
     private void jMnuVendaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuVendaProdutosActionPerformed
         // TODO add your handling code here:
-        JDlgVendaProdutosaa jDlgVendaProdutos = new JDlgVendaProdutosaa(this, true);
+         JDlgVendaProdutos jDlgVendaProdutos = new JDlgVendaProdutos(this, true);
         jDlgVendaProdutos.setVisible(true);
     }//GEN-LAST:event_jMnuVendaProdutosActionPerformed
 
     private void jMnuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuSairActionPerformed
         // TODO add your handling code here:
-        int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente sair?", "Confirmação", JOptionPane.YES_NO_OPTION);
-        if (resp == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
+         int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente sair?", "Confirmação", JOptionPane.YES_NO_OPTION);
+    if (resp == JOptionPane.YES_OPTION) {
+        System.exit(0);
+    }
     }//GEN-LAST:event_jMnuSairActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jMnuUsuariosActionPerformed(null);
+      jMnuUsuariosActionPerformed(null);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -217,7 +217,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -243,7 +243,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
+         java.awt.EventQueue.invokeLater(() -> {
             new JFrmPrincipal().setVisible(true);
         });
     }

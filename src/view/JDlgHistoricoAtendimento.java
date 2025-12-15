@@ -7,12 +7,9 @@ package view;
 import bean.Clientes;
 import bean.Historicoatendimento;
 import bean.Usuarios;
-import dao.ClientesDAO;
 import dao.HistoricoAtendimentoDAO;
 import dao.ProdutosDAO;
-import dao.UsuariosDAO;
 import java.text.ParseException;
-import java.util.List;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import tools.Util;
@@ -35,20 +32,6 @@ public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
         setTitle("Historico de Atendimento");
         setLocationRelativeTo(null);
         habilitar(false);
-        limparCampos();
-
-        UsuariosDAO usuariosDAO = new UsuariosDAO();
-        List listaUsuarios = (List) usuariosDAO.listAll();
-        for (int i = 0; i < listaUsuarios.size(); i++) {
-            jCboUsuario.addItem((Usuarios) listaUsuarios.get(i));
-        }
-
-        ClientesDAO clientesDAO = new ClientesDAO();
-        List listaClientes = (List) clientesDAO.listAll();
-        for (int i = 0; i < listaClientes.size(); i++) {
-            jCboCliente.addItem((Clientes) listaClientes.get(i));
-        }
-
         try {
             MaskFormatter mascara = new MaskFormatter("##/##/####");
             jFmtDataAtendimento.setFormatterFactory(new DefaultFormatterFactory(mascara));
@@ -62,7 +45,7 @@ public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
 
         atendimento.setIaaIdAtendimento(Util.strToInt(jTxtIdAtendimento.getText()));
         atendimento.setIaaIdClientes((Clientes) jCboCliente.getSelectedItem());
-        atendimento.setIaaIdUsuarios((Usuarios) jCboUsuario.getSelectedItem());
+        atendimento.setIaaIdUsuarios((Usuarios) jCboAtendente.getSelectedItem());
         atendimento.setIaaDataAtendimento(Util.strToDate(jFmtDataAtendimento.getText()));
         atendimento.setIaaTipoAtendimento(Util.intToStr(jCboTipo.getSelectedIndex()));
         atendimento.setIaaDescricao(jTxtDescricao.getText());
@@ -72,27 +55,26 @@ public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
     }
 
     public void beanView(Historicoatendimento atendimento) {
+        jCboAtendente.setSelectedItem(Util.intToStr(atendimento.getIaaIdAtendimento()));
         jTxtIdAtendimento.setText(Util.intToStr(atendimento.getIaaIdAtendimento()));
         jCboCliente.setSelectedItem(atendimento.getIaaIdClientes());
-        jCboUsuario.setSelectedItem(atendimento.getIaaIdUsuarios());
         jTxtValor.setText(Util.doubleToStr(atendimento.getIaaValor()));
-        jCboTipo.setSelectedIndex(Util.strToInt(atendimento.getIaaTipoAtendimento()));
         jTxtDescricao.setText(atendimento.getIaaDescricao());
         jFmtDataAtendimento.setText(Util.dateToStr(atendimento.getIaaDataAtendimento()));
     }
 
     public void habilitar(boolean status) {
         if (status) {
-            Util.habilitar(true, jTxtIdAtendimento, jCboCliente, jCboUsuario, jFmtDataAtendimento, jCboTipo, jTxtDescricao, jTxtValor, jBtnConfirmar, jBtnCancelar);
+            Util.habilitar(true, jTxtIdAtendimento, jCboCliente, jCboAtendente, jFmtDataAtendimento, jCboTipo, jTxtDescricao, jTxtValor, jBtnConfirmar, jBtnCancelar);
             Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         } else {
-            Util.habilitar(false, jTxtIdAtendimento, jCboCliente, jCboUsuario, jFmtDataAtendimento, jCboTipo, jTxtDescricao, jTxtValor, jBtnConfirmar, jBtnCancelar);
+            Util.habilitar(false, jTxtIdAtendimento, jCboCliente, jCboAtendente, jFmtDataAtendimento, jCboTipo, jTxtDescricao, jTxtValor, jBtnConfirmar, jBtnCancelar);
             Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         }
     }
 
     public void limparCampos() {
-        Util.limpar(jTxtIdAtendimento, jCboCliente, jCboUsuario, jFmtDataAtendimento, jCboTipo, jTxtDescricao, jTxtValor);
+        Util.limpar(jTxtIdAtendimento, jCboCliente, jCboAtendente, jFmtDataAtendimento, jCboTipo, jTxtDescricao, jTxtValor);
     }
 
     /**
@@ -123,8 +105,8 @@ public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
         jBtnConfirmar = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
         jFmtDataAtendimento = new javax.swing.JFormattedTextField();
+        jCboAtendente = new javax.swing.JComboBox<Usuarios>();
         jCboCliente = new javax.swing.JComboBox<Clientes>();
-        jCboUsuario = new javax.swing.JComboBox<Usuarios>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -138,13 +120,19 @@ public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
 
         jLabel7.setText("Descrição");
 
+        jTxtIdAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtIdAtendimentoActionPerformed(evt);
+            }
+        });
+
         jTxtDescricao.setColumns(20);
         jTxtDescricao.setRows(5);
         jScrollPane1.setViewportView(jTxtDescricao);
 
-        jLabel2.setText("Cliente");
+        jLabel2.setText("Codigo do Cliente");
 
-        jLabel8.setText("Atendente");
+        jLabel8.setText("Codigo do Atendente");
 
         jLabel3.setText("Data de Atendimento");
 
@@ -225,15 +213,19 @@ public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
                                             .addComponent(jTxtIdAtendimento)
                                             .addComponent(jLabel1))
                                         .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                                            .addComponent(jCboCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(0, 25, Short.MAX_VALUE)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 25, Short.MAX_VALUE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jCboCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jTxtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jCboUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jCboAtendente, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,8 +254,8 @@ public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtIdAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCboUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCboAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -293,6 +285,10 @@ public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTxtIdAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtIdAtendimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtIdAtendimentoActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
@@ -342,6 +338,7 @@ public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
         habilitar(true);
         incluir = false;
         jTxtValor.grabFocus();
+        limparCampos();
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     /**
@@ -393,9 +390,9 @@ public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
     private javax.swing.JButton jBtnExcluir;
     private javax.swing.JButton jBtnIncluir;
     private javax.swing.JButton jBtnPesquisar;
+    private javax.swing.JComboBox<Usuarios> jCboAtendente;
     private javax.swing.JComboBox<Clientes> jCboCliente;
     private javax.swing.JComboBox<String> jCboTipo;
-    private javax.swing.JComboBox<Usuarios> jCboUsuario;
     private javax.swing.JFormattedTextField jFmtDataAtendimento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
