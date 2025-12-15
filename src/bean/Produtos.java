@@ -1,6 +1,5 @@
 package bean;
-// Generated 08/10/2025 17:03:02 by Hibernate Tools 4.3.1
-
+// Generated 14/12/2025 15:05:49 by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +19,7 @@ public class Produtos  implements java.io.Serializable {
      private int iaaIdProdutos;
      private String iaaNome;
      private String iaaTamanho;
-     private double iaaPreco;
+     private Double iaaPreco;
      private int iaaEstoque;
      private String iaaCategoria;
      private String iaaDescricao;
@@ -28,14 +27,15 @@ public class Produtos  implements java.io.Serializable {
     public Produtos() {
     }
 
-    public Produtos(int iaaIdProdutos, String iaaNome, String iaaTamanho, double iaaPreco, int iaaEstoque, String iaaCategoria, String iaaDescricao) {
-       this.iaaIdProdutos = iaaIdProdutos;
-       this.iaaNome = iaaNome;
-       this.iaaTamanho = iaaTamanho;
-       this.iaaPreco = iaaPreco;
-       this.iaaEstoque = iaaEstoque;
-       this.iaaCategoria = iaaCategoria;
-       this.iaaDescricao = iaaDescricao;
+	
+    public Produtos(int iaaIdProdutos, String iaaNome, String iaaTamanho, Double iaaPreco, int iaaEstoque, String iaaCategoria, String iaaDescricao) {
+        this.iaaIdProdutos = iaaIdProdutos;
+        this.iaaNome = iaaNome;
+        this.iaaTamanho = iaaTamanho;
+        this.iaaPreco = iaaPreco;
+        this.iaaEstoque = iaaEstoque;
+        this.iaaCategoria = iaaCategoria;
+        this.iaaDescricao = iaaDescricao;
     }
    
      @Id 
@@ -71,12 +71,12 @@ public class Produtos  implements java.io.Serializable {
     }
 
     
-    @Column(name="iaaPreco", nullable=false, precision=22, scale=0)
-    public double getIaaPreco() {
+    @Column(name="iaaPreco", nullable=false, precision=10)
+    public Double getIaaPreco() {
         return this.iaaPreco;
     }
     
-    public void setIaaPreco(double iaaPreco) {
+    public void setIaaPreco(Double iaaPreco) {
         this.iaaPreco = iaaPreco;
     }
 
@@ -101,7 +101,7 @@ public class Produtos  implements java.io.Serializable {
     }
 
     
-    @Column(name="iaaDescricao", nullable=false, length=65535)
+    @Column(name="iaaDescricao", nullable=false, length=50)
     public String getIaaDescricao() {
         return this.iaaDescricao;
     }
@@ -109,22 +109,22 @@ public class Produtos  implements java.io.Serializable {
     public void setIaaDescricao(String iaaDescricao) {
         this.iaaDescricao = iaaDescricao;
     }
-    public String toString(){
-        return this.iaaNome;
-    }
+
     @Override
-     public boolean equals (Object object){
-        if(object instanceof Produtos){
-            Produtos produtos = (Produtos)object;
-        if(this.iaaIdProdutos == produtos.getIaaIdProdutos()) {
-            return true;
-        }
+    public String toString() {
+        return this.getIaaNome();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Produtos) {
+            Produtos o = (Produtos) obj;
+            if (o.getIaaIdProdutos()== this.getIaaIdProdutos()) {
+                return true;
+            }
         }
         return false;
     }
-
-
-
 }
 
 

@@ -37,29 +37,35 @@ public class ControllerVendas extends AbstractTableModel {
             return vendas.getIaaIdVenda();
         }
         if (columnIndex == 1) {
-            return vendas.getIaaCliente();
+            return vendas.getIaaIdClientes();
         }
         if (columnIndex == 2) {
-            return vendas.getIaaTotal();
+            return vendas.getIaaIdUsuarios();
         }
         if (columnIndex == 3) {
-            return vendas.getIaaDataEntrega();
+            return vendas.getIaaDataVenda();
+        }
+        if (columnIndex == 3) {
+            return vendas.getIaaTotal();
         }
         return "";
     }
 
     public String getColumnName(int column) {
         if (column == 0) {
-            return "Código";
+            return "ID";
         }
         if (column == 1) {
             return "Cliente";
         }
         if (column == 2) {
-            return "Total";
+            return "Usuario";
         }
         if (column == 3) {
-            return "Data Entrega";
+            return "Data da Venda";
+        }
+        if (column == 4) {
+            return "Total";
         }
         return "";
     }

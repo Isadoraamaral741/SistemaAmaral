@@ -1,11 +1,14 @@
 package bean;
-// Generated 08/10/2025 17:03:02 by Hibernate Tools 4.3.1
+// Generated 14/12/2025 15:05:49 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,9 +24,10 @@ public class Vendas  implements java.io.Serializable {
 
 
      private int iaaIdVenda;
+     private Clientes iaaIdClientes;
+     private Usuarios iaaIdUsuarios;
      private Date iaaDataVenda;
-     private String iaaCliente;
-     private double iaaTotal;
+     private Double iaaTotal;
      private String iaaStatus;
      private String iaaFormaPagamento;
      private Date iaaDataEntrega;
@@ -32,16 +36,18 @@ public class Vendas  implements java.io.Serializable {
     }
 
 	
-    public Vendas(int iaaIdVenda, String iaaCliente, double iaaTotal, String iaaStatus) {
+    public Vendas(int iaaIdVenda, Clientes iaaIdClientes, Usuarios iaaIdUsuarios, Double iaaTotal, String iaaStatus) {
         this.iaaIdVenda = iaaIdVenda;
-        this.iaaCliente = iaaCliente;
+        this.iaaIdClientes = iaaIdClientes;
+        this.iaaIdUsuarios = iaaIdUsuarios;
         this.iaaTotal = iaaTotal;
         this.iaaStatus = iaaStatus;
     }
-    public Vendas(int iaaIdVenda, Date iaaDataVenda, String iaaCliente, double iaaTotal, String iaaStatus, String iaaFormaPagamento, Date iaaDataEntrega) {
+    public Vendas(int iaaIdVenda, Clientes iaaIdClientes, Usuarios iaaIdUsuarios, Date iaaDataVenda, Double iaaTotal, String iaaStatus, String iaaFormaPagamento, Date iaaDataEntrega) {
        this.iaaIdVenda = iaaIdVenda;
+       this.iaaIdClientes = iaaIdClientes;
+       this.iaaIdUsuarios = iaaIdUsuarios;
        this.iaaDataVenda = iaaDataVenda;
-       this.iaaCliente = iaaCliente;
        this.iaaTotal = iaaTotal;
        this.iaaStatus = iaaStatus;
        this.iaaFormaPagamento = iaaFormaPagamento;
@@ -60,6 +66,26 @@ public class Vendas  implements java.io.Serializable {
         this.iaaIdVenda = iaaIdVenda;
     }
 
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="iaaIdCliente", nullable=false)
+    public Clientes getIaaIdClientes() {
+        return this.iaaIdClientes;
+    }
+    
+    public void setIaaIdClientes(Clientes iaaIdClientes) {
+        this.iaaIdClientes = iaaIdClientes;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="iaaIdUsuarios", nullable=false)
+    public Usuarios getIaaIdUsuarios() {
+        return this.iaaIdUsuarios;
+    }
+    
+    public void setIaaIdUsuarios(Usuarios iaaIdUsuarios) {
+        this.iaaIdUsuarios = iaaIdUsuarios;
+    }
+
     @Temporal(TemporalType.DATE)
     @Column(name="iaaDataVenda", length=10)
     public Date getIaaDataVenda() {
@@ -71,22 +97,12 @@ public class Vendas  implements java.io.Serializable {
     }
 
     
-    @Column(name="iaaCliente", nullable=false)
-    public String getIaaCliente() {
-        return this.iaaCliente;
-    }
-    
-    public void setIaaCliente(String iaaCliente) {
-        this.iaaCliente = iaaCliente;
-    }
-
-    
-    @Column(name="iaaTotal", nullable=false, precision=22, scale=0)
-    public double getIaaTotal() {
+    @Column(name="iaaTotal", nullable=false, precision=10)
+    public Double getIaaTotal() {
         return this.iaaTotal;
     }
     
-    public void setIaaTotal(double iaaTotal) {
+    public void setIaaTotal(Double iaaTotal) {
         this.iaaTotal = iaaTotal;
     }
 
@@ -118,21 +134,6 @@ public class Vendas  implements java.io.Serializable {
     
     public void setIaaDataEntrega(Date iaaDataEntrega) {
         this.iaaDataEntrega = iaaDataEntrega;
-    }
-
-
-    public String toString(){
-        return this.iaaCliente;
-    }
-    @Override
-     public boolean equals (Object object){
-        if(object instanceof Vendas){
-            Vendas vendas = (Vendas)object;
-        if(this.iaaCliente == vendas.getIaaCliente()) {
-            return true;
-        }
-        }
-        return false;
     }
 
 }

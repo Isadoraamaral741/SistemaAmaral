@@ -4,14 +4,9 @@
  */
 package view;
 
-
-import bean.Produtos;
-import bean.Usuarios;
 import bean.Vendas;
-import dao.UsuariosDAO;
 import dao.VendasDAO;
 import java.util.List;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -20,24 +15,27 @@ import javax.swing.table.TableModel;
 public class JDlgVendasPesquisar extends javax.swing.JDialog {
 
     private JDlgVenda jDlgVenda;
-               ControllerVendas controllerVendas;
+    ControllerVendas controllerVendas;
+
     /**
      * Creates new form JDlgVendasPesquisar
      */
     public JDlgVendasPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-         initComponents();        
+        initComponents();
         setLocationRelativeTo(null);
-            VendasDAO vendasDAO = new VendasDAO();
+        VendasDAO vendasDAO = new VendasDAO();
         List lista = (List) vendasDAO.listAll();
         controllerVendas = new ControllerVendas();
         controllerVendas.setList(lista);
         jTable1.setModel(controllerVendas);
-       
+
     }
-        public void setTelaPai(JDlgVenda jDlgVenda){
-       this.jDlgVenda = jDlgVenda;
+
+    public void setTelaPai(JDlgVenda jDlgVenda) {
+        this.jDlgVenda = jDlgVenda;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,8 +97,8 @@ public class JDlgVendasPesquisar extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
-       int linSel = jTable1.getSelectedRow();
-       Vendas vendas = (Vendas) controllerVendas.getBean(linSel);
+        int linSel = jTable1.getSelectedRow();
+        Vendas vendas = (Vendas) controllerVendas.getBean(linSel);
         jDlgVenda.beanView(vendas);
         setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed

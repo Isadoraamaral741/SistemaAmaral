@@ -4,10 +4,15 @@
  */
 package view;
 
+import bean.Clientes;
 import bean.Historicoatendimento;
+import bean.Usuarios;
+import dao.ClientesDAO;
 import dao.HistoricoAtendimentoDAO;
 import dao.ProdutosDAO;
+import dao.UsuariosDAO;
 import java.text.ParseException;
+import java.util.List;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import tools.Util;
@@ -17,46 +22,78 @@ import tools.Util;
  * @author isado
  */
 public class JDlgHistoricoAtendimento extends javax.swing.JDialog {
-     boolean pesquisa = false;
-   private boolean incluir;
+
+    boolean pesquisa = false;
+    private boolean incluir;
+
     /**
      * Creates new form JDlgHistoricoAtendimento
      */
     public JDlgHistoricoAtendimento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-         setTitle("Historico de Atendimento");
+        setTitle("Historico de Atendimento");
         setLocationRelativeTo(null);
-        Util.habilitar(false,jTxtIdAtendente,jTxtIdAtendimento,jCboTipo, jTxtValor,jTxtArDescricao,jFmtDataAtendimento,jTxtIdCliente,jBtnConfirmar, jBtnCancelar );
-         try {
-        MaskFormatter mascara = new MaskFormatter("##/##/####");
-        jFmtDataAtendimento.setFormatterFactory(new DefaultFormatterFactory(mascara));
-    } catch (ParseException ex) {
-        ex.printStackTrace();
+        habilitar(false);
+        limparCampos();
+
+        UsuariosDAO usuariosDAO = new UsuariosDAO();
+        List listaUsuarios = (List) usuariosDAO.listAll();
+        for (int i = 0; i < listaUsuarios.size(); i++) {
+            jCboUsuario.addItem((Usuarios) listaUsuarios.get(i));
+        }
+
+        ClientesDAO clientesDAO = new ClientesDAO();
+        List listaClientes = (List) clientesDAO.listAll();
+        for (int i = 0; i < listaClientes.size(); i++) {
+            jCboCliente.addItem((Clientes) listaClientes.get(i));
+        }
+
+        try {
+            MaskFormatter mascara = new MaskFormatter("##/##/####");
+            jFmtDataAtendimento.setFormatterFactory(new DefaultFormatterFactory(mascara));
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
     }
-    }
+
     public Historicoatendimento viewBean() {
-    Historicoatendimento atendimento = new Historicoatendimento();
+        Historicoatendimento atendimento = new Historicoatendimento();
 
-    atendimento.setIaaIdAtendimento(Util.strToInt(jTxtIdAtendente.getText()));
-    atendimento.setIaaIdAtendimento(Util.strToInt(jTxtIdAtendimento.getText()));
-    atendimento.setIaaValor(Util.strToDouble(jTxtValor.getText()));
-    atendimento.setIaaDescricao(jTxtArDescricao.getText());
-    atendimento.setIaaDataAtendimento(Util.strToDate(jFmtDataAtendimento.getText()));
-    atendimento.setIaaIdCliente(Util.strToInt(jTxtIdCliente.getText()));
+        atendimento.setIaaIdAtendimento(Util.strToInt(jTxtIdAtendimento.getText()));
+        atendimento.setIaaIdClientes((Clientes) jCboCliente.getSelectedItem());
+        atendimento.setIaaIdUsuarios((Usuarios) jCboUsuario.getSelectedItem());
+        atendimento.setIaaDataAtendimento(Util.strToDate(jFmtDataAtendimento.getText()));
+        atendimento.setIaaTipoAtendimento(Util.intToStr(jCboTipo.getSelectedIndex()));
+        atendimento.setIaaDescricao(jTxtDescricao.getText());
+        atendimento.setIaaValor(Util.strToDouble(jTxtValor.getText()));
 
-    return atendimento;
-}
+        return atendimento;
+    }
 
-public void beanView(Historicoatendimento atendimento) {
-    jTxtIdAtendente.setText(Util.intToStr(atendimento.getIaaIdAtendimento()));
-    jTxtIdAtendimento.setText(Util.intToStr(atendimento.getIaaIdAtendimento()));
-    jTxtValor.setText(Util.doubleToStr(atendimento.getIaaValor()));
-    jTxtArDescricao.setText(atendimento.getIaaDescricao());
-    jFmtDataAtendimento.setText(Util.dateToStr(atendimento.getIaaDataAtendimento()));
-    jTxtIdCliente.setText(Util.intToStr(atendimento.getIaaIdCliente()));
-}
+    public void beanView(Historicoatendimento atendimento) {
+        jTxtIdAtendimento.setText(Util.intToStr(atendimento.getIaaIdAtendimento()));
+        jCboCliente.setSelectedItem(atendimento.getIaaIdClientes());
+        jCboUsuario.setSelectedItem(atendimento.getIaaIdUsuarios());
+        jTxtValor.setText(Util.doubleToStr(atendimento.getIaaValor()));
+        jCboTipo.setSelectedIndex(Util.strToInt(atendimento.getIaaTipoAtendimento()));
+        jTxtDescricao.setText(atendimento.getIaaDescricao());
+        jFmtDataAtendimento.setText(Util.dateToStr(atendimento.getIaaDataAtendimento()));
+    }
 
+    public void habilitar(boolean status) {
+        if (status) {
+            Util.habilitar(true, jTxtIdAtendimento, jCboCliente, jCboUsuario, jFmtDataAtendimento, jCboTipo, jTxtDescricao, jTxtValor, jBtnConfirmar, jBtnCancelar);
+            Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        } else {
+            Util.habilitar(false, jTxtIdAtendimento, jCboCliente, jCboUsuario, jFmtDataAtendimento, jCboTipo, jTxtDescricao, jTxtValor, jBtnConfirmar, jBtnCancelar);
+            Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        }
+    }
+
+    public void limparCampos() {
+        Util.limpar(jTxtIdAtendimento, jCboCliente, jCboUsuario, jFmtDataAtendimento, jCboTipo, jTxtDescricao, jTxtValor);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,17 +107,15 @@ public void beanView(Historicoatendimento atendimento) {
         jLabel5 = new javax.swing.JLabel();
         jTxtValor = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jCboTipo = new javax.swing.JComboBox<>();
+        jCboTipo = new javax.swing.JComboBox<String>();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jTxtIdAtendimento = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTxtArDescricao = new javax.swing.JTextArea();
+        jTxtDescricao = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
-        jTxtIdCliente = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTxtIdAtendente = new javax.swing.JTextField();
         jBtnPesquisar = new javax.swing.JButton();
         jBtnIncluir = new javax.swing.JButton();
         jBtnAlterar = new javax.swing.JButton();
@@ -88,6 +123,8 @@ public void beanView(Historicoatendimento atendimento) {
         jBtnConfirmar = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
         jFmtDataAtendimento = new javax.swing.JFormattedTextField();
+        jCboCliente = new javax.swing.JComboBox<Clientes>();
+        jCboUsuario = new javax.swing.JComboBox<Usuarios>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -95,25 +132,19 @@ public void beanView(Historicoatendimento atendimento) {
 
         jLabel6.setText("Tipo");
 
-        jCboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chat Online", "E-mail", "Telefone", "Redes Sociais", " " }));
+        jCboTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chat Online", "E-mail", "Telefone", "Redes Sociais", " " }));
 
         jLabel1.setText("Codigo do Atendimento");
 
         jLabel7.setText("Descrição");
 
-        jTxtIdAtendimento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtIdAtendimentoActionPerformed(evt);
-            }
-        });
+        jTxtDescricao.setColumns(20);
+        jTxtDescricao.setRows(5);
+        jScrollPane1.setViewportView(jTxtDescricao);
 
-        jTxtArDescricao.setColumns(20);
-        jTxtArDescricao.setRows(5);
-        jScrollPane1.setViewportView(jTxtArDescricao);
+        jLabel2.setText("Cliente");
 
-        jLabel2.setText("Codigo do Cliente");
-
-        jLabel8.setText("Codigo do Atendente");
+        jLabel8.setText("Atendente");
 
         jLabel3.setText("Data de Atendimento");
 
@@ -176,32 +207,33 @@ public void beanView(Historicoatendimento atendimento) {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jCboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jFmtDataAtendimento)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel6)
+                                                    .addComponent(jCboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel3)
+                                                    .addComponent(jFmtDataAtendimento))))
+                                        .addGap(25, 25, 25))
+                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(jTxtIdAtendimento)
                                             .addComponent(jLabel1))
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jTxtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(25, 25, 25)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                                            .addComponent(jCboCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(0, 25, Short.MAX_VALUE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
+                                    .addComponent(jTxtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jTxtValor, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTxtIdAtendente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jCboUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,8 +262,8 @@ public void beanView(Historicoatendimento atendimento) {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtIdAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtIdAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCboUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -262,10 +294,6 @@ public void beanView(Historicoatendimento atendimento) {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTxtIdAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtIdAtendimentoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtIdAtendimentoActionPerformed
-
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
         JDlgHistoricoAtedimentoPesquisar JDlgHistoricoAtedimentoPesquisar = new JDlgHistoricoAtedimentoPesquisar(null, true);
@@ -275,9 +303,9 @@ public void beanView(Historicoatendimento atendimento) {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true,jTxtIdAtendente,jTxtIdAtendimento,jTxtValor,jCboTipo,jTxtArDescricao,jFmtDataAtendimento,jTxtIdCliente, jBtnConfirmar, jBtnCancelar);
-        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-         jTxtIdAtendente.grabFocus();
+        habilitar(true);
+        limparCampos();
+        jTxtIdAtendimento.grabFocus();
         incluir = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
@@ -287,38 +315,33 @@ public void beanView(Historicoatendimento atendimento) {
             HistoricoAtendimentoDAO atendimentoDAO = new HistoricoAtendimentoDAO();
             atendimentoDAO.delete(viewBean());
         }
-                Util.limpar(jTxtIdAtendente,jTxtIdAtendimento,jTxtValor,jTxtArDescricao,jFmtDataAtendimento,jTxtIdCliente);
-
+        habilitar(false);
+        limparCampos();
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false,jTxtIdAtendimento,jTxtValor,jTxtArDescricao,jFmtDataAtendimento,jTxtIdCliente,jTxtIdAtendente, jBtnConfirmar, jBtnCancelar);
-        Util.habilitar(true,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        habilitar(false);
         HistoricoAtendimentoDAO atendimentoDAO = new HistoricoAtendimentoDAO();
         if (incluir == true) {
             atendimentoDAO.insert(viewBean());
         } else {
             atendimentoDAO.update(viewBean());
         }
-        Util.limpar(jTxtIdAtendente,jTxtIdAtendimento, jCboTipo,jTxtIdAtendente ,jTxtValor,jTxtArDescricao,jFmtDataAtendimento,jTxtIdCliente);
+        limparCampos();
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false,jTxtIdAtendente,jTxtIdAtendimento,jTxtValor,jTxtArDescricao,jFmtDataAtendimento,jTxtIdCliente, jBtnConfirmar, jBtnCancelar);
-        Util.habilitar(true,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.limpar(jTxtIdAtendente,jTxtIdAtendimento,jTxtValor,jTxtArDescricao,jFmtDataAtendimento,jTxtIdCliente);
+        habilitar(false);
+        limparCampos();
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true,jTxtIdAtendente,jTxtIdAtendimento,jTxtValor,jTxtArDescricao,jFmtDataAtendimento,jTxtIdCliente, jBtnConfirmar, jBtnCancelar);
-        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-          incluir = false;
+        habilitar(true);
+        incluir = false;
         jTxtValor.grabFocus();
-                Util.limpar(jTxtIdAtendente,jTxtIdAtendimento,jTxtValor,jTxtArDescricao,jFmtDataAtendimento,jTxtIdCliente);
-
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     /**
@@ -370,7 +393,9 @@ public void beanView(Historicoatendimento atendimento) {
     private javax.swing.JButton jBtnExcluir;
     private javax.swing.JButton jBtnIncluir;
     private javax.swing.JButton jBtnPesquisar;
+    private javax.swing.JComboBox<Clientes> jCboCliente;
     private javax.swing.JComboBox<String> jCboTipo;
+    private javax.swing.JComboBox<Usuarios> jCboUsuario;
     private javax.swing.JFormattedTextField jFmtDataAtendimento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -380,10 +405,8 @@ public void beanView(Historicoatendimento atendimento) {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTxtArDescricao;
-    private javax.swing.JTextField jTxtIdAtendente;
+    private javax.swing.JTextArea jTxtDescricao;
     private javax.swing.JTextField jTxtIdAtendimento;
-    private javax.swing.JTextField jTxtIdCliente;
     private javax.swing.JTextField jTxtValor;
     // End of variables declaration//GEN-END:variables
 }

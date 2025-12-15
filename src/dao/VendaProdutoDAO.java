@@ -5,7 +5,8 @@
  */
 package dao;
 
-import bean.Clientes;
+import bean.Vendaproduto;
+import bean.Vendas;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -15,15 +16,15 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author isado
  */
-public abstract class VendaProdutoDAO extends DAOAbstract {
+public class VendaProdutoDAO extends DAOAbstract {
 
-     @Override
+    @Override
     public void insert(Object object) {
         session.beginTransaction();
         session.save(object);
         session.getTransaction().commit();
-    } 
-    
+    }
+
     @Override
     public void update(Object objeto) {
         session.beginTransaction();
@@ -31,7 +32,7 @@ public abstract class VendaProdutoDAO extends DAOAbstract {
         session.clear();
         session.update(objeto);
         session.getTransaction().commit();
- }
+    }
 
     @Override
     public void delete(Object objeto) {
@@ -45,7 +46,7 @@ public abstract class VendaProdutoDAO extends DAOAbstract {
     @Override
     public Object list(int codigo) {
         session.beginTransaction();
-        Criteria criteria = session.createCriteria(Clientes.class);
+        Criteria criteria = session.createCriteria(Vendaproduto.class);
         criteria.add(Restrictions.eq("iaaIdCliente", codigo));
         List lista = criteria.list();
         session.getTransaction().commit();
@@ -53,10 +54,19 @@ public abstract class VendaProdutoDAO extends DAOAbstract {
 
     }
 
+    public List<Vendaproduto> listProduto(Vendas vendas) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Vendaproduto.class);
+        criteria.add(Restrictions.eq("vendas", vendas));
+        List<Vendaproduto> lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+
     @Override
     public List listAll() {
         session.beginTransaction();
-        Criteria criteria = session.createCriteria(Clientes.class);
+        Criteria criteria = session.createCriteria(Vendaproduto.class);
         List lista = criteria.list();
         session.getTransaction().commit();
         return (ArrayList) lista;
